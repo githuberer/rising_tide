@@ -1,0 +1,13 @@
+<h1>Flush Redis cache Results </h1>
+
+<% params[:result].each do |e| %>
+    <hr>
+    <p><ul>
+            <li> hostname    :  <%= e[0] %> </li>
+            <li> ip          :  <%= e[1] %> </li>
+            <li> bash_exec   :  <%=escape_html e[2] %> </li>
+            <li> <b> result  :  <%= e[3] %> </b> </li> 
+
+    </ul></p>
+<% end %>
+
