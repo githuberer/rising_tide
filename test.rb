@@ -24,7 +24,7 @@ puts "\n\ntest.upload:::\n"
 puts test.upload("testfile", content).inspect
 
 puts "\n\ntest.scp:::\n" 
-File.open('/home/wyy/Dropbox/rising_tide/uploads/a_test', 'w') { |f| f.write("a test") }
+File.open('/home/wyy/rising_tide/uploads/a_test', 'w') { |f| f.write("a test") }
 puts test.scp("/u/bak/a_test", *["v5backup"]).inspect
 
 

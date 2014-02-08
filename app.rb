@@ -22,7 +22,7 @@ get '/' do
   erb :index
 end
 
-# /redis
+# /redis ########
 get '/redis' do
   redirect '/redis/flush'
 end
@@ -36,7 +36,7 @@ post '/redis/flush' do
 end
 
 
-# /subfile
+# /subfile ######
 get '/subfile' do
   erb :subfile_get
 end
@@ -49,6 +49,13 @@ post '/subfile' do
   #params[:result].inspect
   erb :subfile_post
 end
+
+
+# /deploy #######
+get '/deploy' do
+  erb :deploy_get
+end
+
 
 
 

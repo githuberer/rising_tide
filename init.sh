@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-. /usr/local/rvm/scripts/rvm
+. /etc/profile.d/rvm.sh
 
+HOME=/root
 param=$1
 
 case $param in
@@ -21,5 +22,6 @@ case $param in
     echo -e "\n PARAMS: start | stop | status \n"
     ;;
 esac
+
 
 
