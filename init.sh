@@ -3,6 +3,7 @@
 . /etc/profile.d/rvm.sh
 
 HOME=/root
+
 param=$1
 
 case $param in
