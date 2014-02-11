@@ -3,8 +3,15 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require_relative 'rising_tide'
 
-# Ensure the application’s root directory
+# configure sinatra
+# ensure the application’s root directory
 #set :root, File.dirname(__FILE__)
+#APP_ROOT = File.dirname(__FILE__)
+set :app_file, __FILE__
+set :lock, true
+set :show_exceptions, false
+set :bind, '127.0.0.1'
+set :port, '4567'
 
 
 # Password Auth
@@ -26,7 +33,9 @@ rtide = Helpers::RisingTide.new
 
 # /
 get '/' do
-  erb :index
+  Dir.pwd
+
+  #erb :index
 end
 
 # /redis ########
@@ -67,6 +76,5 @@ end
 post '/deploy' do
   params.inspect
 end
-
 
 
