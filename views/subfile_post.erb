@@ -1,8 +1,28 @@
 <h1>Subfile Results</h1>
-<hr>
 
-<% params[:result].each do |e| %>
-  <%= e %> <p>
+<ul>
+<% upload_web_result = params[:result].shift %>
+
+<% if upload_web_result == 8 %>
+
+  <% (0...params[:hostname].length).each do |e| %>
+    <hr>
+      <li> hostname : <%= params[:hostname][e] %> </li>
+      <% result0 = params[:result][e][0] %>
+      <% result1 = params[:result][e][1] %>
+      <% result2 = params[:result][e][2] %>
+      <% if result0 == nil and result1 == nil and result2 == nil %>
+        <li> <b> result : ok </b> </li>
+      <% else %>
+        <li> <b> !!! error message0: <%= result0 %> </b> </li>
+        <li> <b> !!! error message1: <%= result1 %> </b> </li>
+        <li> <b> !!! error message2: <%= result2 %> </b> </li>
+      <% end %>
+    <% end %>
+
+  <% else %> <li> <b> !!! upload_web error: <%= upload_web_result %> </b> </li>
+
 <% end %>
 
+  </ul>
 

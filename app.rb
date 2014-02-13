@@ -1,44 +1,40 @@
 #!/usr/bin/env ruby
 require 'sinatra'
 require 'sinatra/reloader' if development?
-require_relative 'rising_tide'
+require_relative 'lib/helpers'
 
-# configure sinatra
-# ensure the application’s root directory
-#set :root, File.dirname(__FILE__)
-#APP_ROOT = File.dirname(__FILE__)
-set :app_file, __FILE__
-set :lock, true
-set :show_exceptions, false
-set :bind, '127.0.0.1'
+
 set :port, '4567'
+set :bind, '127.0.0.1'
+set :lock, true
+set :sessions, true                         # disabled default
+#set environment, :production
+#set :show_exceptions, false
+#set :root, File.dirname(__FILE__)          # set application’s root directory to current file's dir
+#set :app_file, __FILE__
 
 
-# Password Auth
 use Rack::Auth::Basic, "RisingTide-Manager" do |username, password|
   username == 'admin' and password == 'admin'
 end
 
 
-# customs
 helpers do 
   include Helpers
 end
-
 rtide = Helpers::RisingTide.new
 
 
+#####Routes#####################
 
-# routes #################
-
-# /
-get '/' do
-  Dir.pwd
-
-  #erb :index
+get '/test' do
+  erb :subfile_post
 end
 
-# /redis ########
+get '/' do
+  erb :index
+end
+
 get '/redis' do
   redirect '/redis/flush'
 end
@@ -46,34 +42,32 @@ get '/redis/flush' do
   erb :redis_flush_get
 end
 post '/redis/flush' do
-  #params.inspect
-  hostname = params['hostname']
-  params[:result] = rtide.redis_flush(*hostname)
+  params['result'] = rtide.redis_flush(*params['hostname'])
   erb :redis_flush_post
+  #params.inspect
+  #params['result'].inspect
 end
 
-
-# /subfile ######
 get '/subfile' do
   erb :subfile_get
 end
 post '/subfile' do
-  Dir.pwd
-  #params[:result] = rtide.subfile(
-  #  params['path'].strip,                   # path(remote server)
-  #  params['myfile'][:tempfile],            # content
-  #  *params['hostname']                     # hostname
-  #)
-  #params[:result].inspect
-  #erb :subfile_post
+  params['result'] = rtide.subfile(
+    params['path'].strip,                   # path(remote server)
+    params['myfile'][:tempfile],            # content
+    *params['hostname']                     # hostname
+  )
+  erb :subfile_post
+  #params.inspect
 end
 
-
-# /deploy #######
 get '/deploy' do
   erb :deploy_get
 end
 post '/deploy' do
+  package = params['package']
+  params['result'] = rtide.deploy("v5backup", *package)
+  #erb :deploy_post
   params.inspect
 end
 
