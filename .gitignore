@@ -3,3 +3,9 @@
 config.rb
 uploads
 uploads/*
+
+
+# vim #
+################################
+*.swp
+.*.swp
