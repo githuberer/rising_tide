@@ -14,6 +14,7 @@ source 'https://rubygems.org'
 # net-ssh (net/ssh) 
 # mysql2 
 # haml 
+# rubyzip
 
 
 # sinatra
@@ -36,4 +37,4 @@ gem 'mysql2'
 
 gem 'rack'
 
-
+gem 'rubyzip'

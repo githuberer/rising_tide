@@ -4,6 +4,8 @@ require 'sinatra/reloader' if development?
 require_relative 'lib/helpers'
 
 
+#####Config#####################
+
 set :port, '4567'
 set :bind, '127.0.0.1'
 set :lock, true
@@ -13,17 +15,13 @@ set :sessions, true                         # disabled default
 #set :root, File.dirname(__FILE__)          # set application’s root directory to current file's dir
 #set :app_file, __FILE__
 
-
 use Rack::Auth::Basic, "RisingTide-Manager" do |username, password|
   username == 'admin' and password == 'admin'
 end
 
 
-helpers do 
-  include Helpers
-end
+helpers { include Helpers }
 rtide = Helpers::RisingTide.new
-
 
 #####Routes#####################
 
@@ -65,10 +63,11 @@ get '/deploy' do
   erb :deploy_get
 end
 post '/deploy' do
-  package = params['package']
-  params['result'] = rtide.deploy("v5backup", *package)
+  #package = params['package']
+  #params['result'] = rtide.deploy("v5backup", *package)
   #erb :deploy_post
   params.inspect
 end
+
 
 
