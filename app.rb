@@ -69,5 +69,12 @@ post '/deploy' do
   params.inspect
 end
 
+get '/sync_original_music' do
+  erb :sync_original_music_get
+end
+post '/sync_original_music' do
+  params.inspect
+end
+
 
 
