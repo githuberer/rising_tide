@@ -43,7 +43,7 @@ class Model
       :port => $port_ssh,
     ) { |scp| result << scp.upload!( "uploads/#{filename}", "/temp/#{filename}" ) }
 
-    result << self.ssh("sudo cp /temp/#{filename} #{path}", hostname) if not path =~ /^\/temp/
+    result << self.ssh("sudo cp /temp/#{filename} #{path}", hostname) unless path =~ /^\/temp/
     return result
   end
   def confile_append(packname, hostname)
