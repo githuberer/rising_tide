@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
-# This is a example file of config.rb
+# This is an example file of config.rb
 # Modify variables below and then execute shell command: 'mv config-example.rb config.rb'
 
-# ssh :user, :port, :password
+# ssh: user, port, password
 $port_ssh = '22'
 $user_ssh = 'user1'
 $password_ssh = "password1"
