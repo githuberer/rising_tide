@@ -15,7 +15,7 @@ set :sessions, true                         # disabled default
 #set :root, File.dirname(__FILE__)          # set application’s root directory to current file's dir
 #set :app_file, __FILE__
 
-use Rack::Auth::Basic, "RisingTide-Manager" do |username, password|
+use Rack::Auth::Basic, 'RisingTide-Manager' do |username, password|
   username == 'admin' and password == 'admin'
 end
 
@@ -73,7 +73,8 @@ get '/sync_original_music' do
   erb :sync_original_music_get
 end
 post '/sync_original_music' do
-  params.inspect
+  params['result'] = rtide.sync_original_music(params['id'])
+  params['result'].inspect
 end
 
 

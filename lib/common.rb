@@ -2,6 +2,7 @@
 require_relative '../config'
 require 'net/ssh'
 require 'net/scp'
+require 'mysql2'
 require 'zip'
 require 'cgi'
 
@@ -30,7 +31,7 @@ class Model
     path = "uploads/#{filename}"
     return File.open(path, 'w') { |f| f.write(content.read) }
   end
-  def upload_scp(path, hostname)    # path => remote path: "/u/bak/ttt.html" 
+  def upload_scp(path, hostname)        # path example(remote server's file path) => : "/u/bak/ttt.html" 
     filename = File.basename(path)
     result = []
     result << self.ssh("[[ -f /temp/#{filename} ]] && sudo rm -rf /temp/#{filename}", hostname)
@@ -59,6 +60,28 @@ class Model
     Zip::File.open(package_path, Zip::File::CREATE) do |f|
       f.add(confile_path_package, confile_path_system)
     end
+  end
+  def mysql_select(id, hostname)        # id example => "111 222\r333\n444"
+    result = {}
+    ip = self.to_ip(hostname)
+    om_id = id.split("\s").join(', ')
+
+    client = Mysql2::Client.new(
+      :host => ip,
+      :username => $user_mysql,
+      :password => $password_mysql,
+      :database => $database
+    )
+
+    client.query(
+      "SELECT * FROM #{$table} 
+      WHERE om_id in ( #{om_id} )" 
+    ).each do |e|
+      result[e.delete("om_id")] = e     # result["1234"] = { "type" => 0, "sing_num" => nil }  ## "1234" is om_id
+      #result.merge!(e)
+    end
+
+    return result                       # result = { 1234 => { "type" => 0, "sing_num" => nil } }
   end
 
 end

@@ -21,6 +21,11 @@ case $param in
     status)
         ps -ef |grep app.rb|grep -v "grep" |grep -v "vim"
         ;;
+    restart)
+        $home_app/init.sh stop
+        sleep 1
+        $home_app/init.sh start
+        ;;
     *)
     echo -e "\n PARAMS: start | stop | status \n"
     ;;

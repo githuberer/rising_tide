@@ -55,6 +55,9 @@ EOF
         end
       end
     end
+    def sync_original_music(id)
+      self.mysql_select(id, "v5backup")
+    end
 
   end  # class end
 end    # module end
