@@ -7,14 +7,11 @@ require 'zip'
 require 'cgi'
 
 
-module View
+
+class Common
   def escape_html(text)
     CGI.escapeHTML(text).sub("\n", "<br>")
   end
-end
-
-
-class Model
   def to_ip(hostname)
     $hosts[hostname]
   end
@@ -61,7 +58,7 @@ class Model
       f.add(confile_path_package, confile_path_system)
     end
   end
-  def mysql_select(id, hostname)        # id example => "111 222\r333\n444"
+  def mysql_select(id, hostname)
     result = {}
     ip = self.to_ip(hostname)
     om_id = id.split("\s").join(', ')
@@ -85,6 +82,5 @@ class Model
   end
 
 end
-
 
 

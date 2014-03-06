@@ -1,9 +1,8 @@
 #!/usr/bin/env ruby
 require_relative 'common'
 
-module Helpers
-  include View
-  class RisingTide < Model
+module RisingTide
+  class RisingTide < Common
     #private :upgrade_package_from_local
     def redis_flush(*hostname)
       script = <<-header
@@ -25,7 +24,7 @@ EOF
         #return result.flatten!(1)
     end
 
-    #private
+    private
     def upgrade_package_from_local(packname, hostname)
       packname_dotfront = packname.sub(/\..*/, '')
       script = <<-header
@@ -36,7 +35,7 @@ EOF
       self.ssh(script, hostname)
     end
 
-    #public
+    public
     def deploy(hostname, *packname)
       if hostname == "v5backup"
         packname.each do |e|
@@ -55,12 +54,7 @@ EOF
         end
       end
     end
-    def sync_original_music(id)
-      self.mysql_select(id, "v5backup")
-    end
+
 
   end  # class end
 end    # module end
-
-
-

@@ -1,21 +1,22 @@
 #!/usr/bin/env ruby
 require 'sinatra'
 require 'sinatra/reloader' if development?
-require_relative 'lib/helpers'
+require_relative 'lib/helper'
 
 
-#####Config#####################
+
+##### Config #####################
 
 set :port, '4567'
 set :bind, '127.0.0.1'
 set :lock, true
-set :sessions, true                         # disabled default
+set :sessions, true                     
 #set environment, :production
 #set :show_exceptions, false
 #set :root, File.dirname(__FILE__)          # set application’s root directory to current file's dir
 #set :app_file, __FILE__
 
-use Rack::Auth::Basic, 'RisingTide-Manager' do |username, password|
+use Rack::Auth::Basic, 'RisingTide_Manager' do |username, password|
   username == 'admin' and password == 'admin'
 end
 
@@ -23,7 +24,7 @@ end
 helpers { include Helpers }
 rtide = Helpers::RisingTide.new
 
-#####Routes#####################
+##### Routes #####################
 
 get '/test' do
   erb :subfile_post
@@ -73,7 +74,14 @@ get '/sync_original_music' do
   erb :sync_original_music_get
 end
 post '/sync_original_music' do
-  params['result'] = rtide.sync_original_music(params['id'])
+
+#  sync = Helpers::SyncOriginalMusic.new(
+#    params['id]',
+#    'v5backup',
+#    'v5db'
+#  )
+
+  params['result'] = rtide.mysql_select(params['id'], "v5backup")
   params['result'].inspect
 end
 
