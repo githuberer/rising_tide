@@ -1,11 +1,10 @@
 #!/usr/bin/env ruby
-require_relative '../config'
 require 'net/ssh'
 require 'net/scp'
 require 'mysql2'
 require 'zip'
 require 'cgi'
-
+require_relative '../config/main'
 
 
 class Common
@@ -25,7 +24,7 @@ class Common
     ) { |ssh| return ssh.exec!(script) }
   end
   def upload_web(filename, content)
-    path = "uploads/#{filename}"
+    path = "upload/#{filename}"
     return File.open(path, 'w') { |f| f.write(content.read) }
   end
   def upload_scp(path, hostname)        # path example(remote server's file path) => : "/u/bak/ttt.html" 
@@ -39,15 +38,15 @@ class Common
       $user_ssh,
       :password => $password_ssh, 
       :port => $port_ssh,
-    ) { |scp| result << scp.upload!( "uploads/#{filename}", "/temp/#{filename}" ) }
+    ) { |scp| result << scp.upload!( "upload/#{filename}", "/temp/#{filename}" ) }
 
     result << self.ssh("sudo cp /temp/#{filename} #{path}", hostname) unless path =~ /^\/temp/
     return result
   end
   def confile_append(packname, hostname)
     packname_dotfront = packname.sub(/\..*/, '')
-    package_path = "uploads/#{packname}"
-    confile_path_system = "uploads/#{hostname}-config.properties/#{packname_dotfront}"
+    package_path = "upload/#{packname}"
+    confile_path_system = "upload/#{hostname}-config.properties/#{packname_dotfront}"
     confile_path_package = if packname == "api-album.zip"
                              "#{packname_dotfront}/config.properties"
                            else

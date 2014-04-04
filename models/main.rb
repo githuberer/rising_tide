@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 require_relative 'common'
 
-module RisingTide
-  class RisingTide < Common
+module Main
+  class Main < Common
     #private :upgrade_package_from_local
     def redis_flush(*hostname)
       script = <<-header
@@ -24,7 +24,7 @@ EOF
         #return result.flatten!(1)
     end
 
-    private
+    #private
     def upgrade_package_from_local(packname, hostname)
       packname_dotfront = packname.sub(/\..*/, '')
       script = <<-header
@@ -35,7 +35,7 @@ EOF
       self.ssh(script, hostname)
     end
 
-    public
+    #public
     def deploy(hostname, *packname)
       if hostname == "v5backup"
         packname.each do |e|
@@ -55,6 +55,5 @@ EOF
       end
     end
 
-
-  end  # class end
-end    # module end
+  end
+end

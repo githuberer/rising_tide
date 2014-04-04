@@ -1,27 +1,27 @@
 
-<h1>Subfile</h1>
+<h1>替换文件</h1>
 <hr>
 
 
   <form action="subfile" method="post" enctype='multipart/form-data' target="_blank">
-    <p> <b><i> substitude "File Path" with "Upload File" </i></b> </p>
+    <p> <b> 上传替换服务器上的文件 </b> </p>
 <ol>
     <p> <li>
-    <i> Upload "File" </i> <br>
+    <i> 选择本地要上传的文件，文件名任意。 </i> <br>
     <input type="file" name="myfile" /> </br>
     </li> </p>
 
 
     <p> <li>
-    <i> Type in "File Path" 
+    <i> 键入服务器上需要被替换的文件的路径，包括文件名。
     </i> <br>
-    <i> (Path Example: /u/www/mchang/faq.html) </i>
+    <i> 例如： /u/www/mchang/faq.html </i>
     <textarea rows="1" cols="50" name="path"> </textarea>
     </li> </p>
 
 
     <p> <li> 
-    <i> Select Server </i> <br>
+    <i> 选择一台或者多台需要被替换文件的服务器。 </i> <br>
     <input type="checkbox" name="hostname[]" id="v5backup" value="v5backup" />
     <label for="v5backup">v5backup</label>
 
@@ -36,7 +36,7 @@
     </li> </p>
 
     <p> <li>
-    <i> Click button below to finish </i> <br>
+    <i> 点击“subfile”按钮执行最终替换操作。 </i> <br>
     <input name="commit" type="submit" value="subfile" />
     </li> </p>
 

@@ -1,8 +1,8 @@
 # rising_tide #
 ##########################
-config.rb
+config/main.rb
 uploads
-uploads/*
+log
 
 
 # vim #

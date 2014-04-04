@@ -1,12 +1,15 @@
 #!/usr/bin/env ruby
 require 'sinatra'
 require 'sinatra/reloader' if development?
-require_relative 'lib/helper'
+require_relative 'helper'
 
+
+use Rack::Auth::Basic, 'RisingTide_Manager' do |username, password|
+  username == 'admin' and password == 'admin'
+end
 
 
 ##### Config #####################
-
 set :port, '4567'
 set :bind, '127.0.0.1'
 set :lock, true
@@ -16,16 +19,10 @@ set :sessions, true
 #set :root, File.dirname(__FILE__)          # set application’s root directory to current file's dir
 #set :app_file, __FILE__
 
-use Rack::Auth::Basic, 'RisingTide_Manager' do |username, password|
-  username == 'admin' and password == 'admin'
-end
-
 
 helpers { include Helpers }
-rtide = Helpers::RisingTide.new
-
+rtide = Helpers::Main.new
 ##### Routes #####################
-
 get '/test' do
   erb :subfile_post
 end
@@ -83,6 +80,22 @@ post '/sync_original_music' do
 
   params['result'] = rtide.mysql_select(params['id'], "v5backup")
   params['result'].inspect
+end
+
+get '/daily_work' do
+  erb :mail_daily_work_get
+end
+post '/daily_work' do
+  #content = params['content']
+  hostname = params['hostname'] = $hosts.keys
+  servers = Helpers::MailDailyWork.new(*hostname)
+  #servers.check_disk_space
+  #servers.check_net_traffic
+  servers.check_process
+  "done"
+  #net_traffic = servers.check_net_traffic
+  #net_traffic.inspect
+  #erb :daily_mail_post
 end
 
 

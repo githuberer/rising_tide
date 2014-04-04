@@ -1,5 +1,3 @@
-source 'https://rubygems.org'
-
 
 ######################################
 ##  run your app like this:         ##
@@ -7,34 +5,18 @@ source 'https://rubygems.org'
 ##  1, $ gem install bundler        ##
 ##  2, $ bundle exec ruby app.rb    ##
 ######################################
-# gem install 
-# thin (sinatra) 
-# erubis (erb)
-# net-scp (net/scp)
-# net-ssh (net/ssh) 
-# mysql2 
-# haml 
-# rubyzip
 
+#source :rubygems
+source 'https://rubygems.org'
 
-# sinatra
+#gem 'haml'            
+#gem 'erubis'  
+#gem 'rack'
 gem 'sinatra'
-
-###########
-
-gem 'haml'            
-
-# erb
-gem 'erubis'  
-
-# net/scp
+gem 'thin'
 gem 'net-scp' 
-
-# net/ssh
 gem 'net-ssh'
-
 gem 'mysql2'
-
-gem 'rack'
-
 gem 'rubyzip'
+gem 'whenever', :require => false
+gem 'rake'
