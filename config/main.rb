@@ -1,1 +1,0 @@
-/home/wyy/Dropbox/1cloud/config.rb
