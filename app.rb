@@ -85,18 +85,18 @@ end
 get '/daily_work' do
   erb :mail_daily_work_get
 end
-post '/daily_work' do
+#post '/daily_work' do
   #content = params['content']
-  hostname = params['hostname'] = $hosts.keys
-  servers = Helpers::MailDailyWork.new(*hostname)
+  #hostname = params['hostname'] = $hosts.keys
+  #servers = Helpers::MailDailyWork.new(*hostname)
   #servers.check_disk_space
   #servers.check_net_traffic
-  servers.check_process
-  "done"
+  #servers.check_process
+  #"done"
   #net_traffic = servers.check_net_traffic
   #net_traffic.inspect
   #erb :daily_mail_post
-end
+#end
 
 
 

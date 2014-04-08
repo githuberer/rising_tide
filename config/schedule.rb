@@ -21,6 +21,6 @@
 
 set :output, "log/whenever.log"
 
-every 10.minutes do
+every 1.day do
   rake "CheckServerHealth"
 end
