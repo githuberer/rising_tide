@@ -2,6 +2,9 @@
 #
 # It's helpful, but not entirely necessary to understand cron before proceeding.
 # http://en.wikipedia.org/wiki/Cron
+#
+# Update crontab on linux, exec command:
+# whenever -i
 
 # Example:
 #
@@ -18,9 +21,14 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-
+#
+############################################
+# Update crontab on linux, exec command below:
+# whenever -i
+############################################
 set :output, "log/whenever.log"
 
-every 1.day do
-  rake "CheckServerHealth"
+every :day, :at => '1am' do
+  rake "check_server_health"
 end
+

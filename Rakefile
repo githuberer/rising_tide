@@ -1,8 +1,10 @@
 #!/usr/bin/env ruby
 require_relative 'helper'
 
+# exec command: rake task_name
+# example: rake check_server_health
 
-task :checkserverhealth do
+task :check_server_health do
   hostname = $hosts.keys
   servers = Helpers::CheckServerHealth.new(*hostname)
   servers.check_process

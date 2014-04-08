@@ -13,7 +13,7 @@ module CheckServerHealth
       file = "upload/check_server_health/#{filename}"
       dir = File.dirname(file)
       Dir.mkdir(dir) if ! Dir.exist?(dir)
-      File.delete file if File.exist? file
+      File.delete(file) if File.exist?(file)
 
       @hostname.each do |e| 
         content = <<-EOF.gsub(/^ +/, "")
