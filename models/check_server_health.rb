@@ -8,7 +8,7 @@ module CheckServerHealth
       @hostname = hostname
     end
 
-    protected
+    private
     def produce_file(cmd, filename)
       file = "upload/check_server_health/#{filename}"
       dir = File.dirname(file)
@@ -20,7 +20,7 @@ module CheckServerHealth
         \n\n
         #{e}
         ===========================
-        #{self.ssh(cmd, e)}
+        #{ssh(cmd, e)}
         \n\n
         EOF
 
@@ -32,7 +32,7 @@ module CheckServerHealth
     def check_disk_space
       cmd = "df -h"
 
-      self.produce_file(cmd, "#{__callee__}.txt")
+      produce_file(cmd, "#{__callee__}.txt")
     end
     def check_net_traffic
       cmd = <<-EOF
@@ -40,12 +40,12 @@ module CheckServerHealth
       vnstat -d|grep #{Time.now.strftime "%m/%d/%y"}
       EOF
 
-      self.produce_file(cmd, "#{__callee__}.txt")
+      produce_file(cmd, "#{__callee__}.txt")
     end
     def check_process
       cmd = "ps -eo command --sort command"
 
-      self.produce_file(cmd, "#{__callee__}.txt")
+      produce_file(cmd, "#{__callee__}.txt")
     end
   end
 end
