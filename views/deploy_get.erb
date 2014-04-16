@@ -1,11 +1,21 @@
 
-<h1> 发布Tomcat相关包 </h1>
+<h2> 发布Tomcat相关包 </h2>
 <hr>
 
 <ul>
-  <li> <h2>发布至备份服务器 (v5backup server) </h2> </li>
+  <li> <h3>发布至备份服务器 (v5backup server) </h3> </li>
+  <ol>
+    <li><p>
+  上传文件至samba目录：
+  <br>
+  windows: \\10.0.0.249\sys-main\
+  <br>
+  mac or linux: smb://10.0.0.249/sys-main/
+  </p></li>
 
-  <p> select && click button: </p>
+  <li>
+    <p> select && click button: </p>
+  </li>
 
   <form action="deploy" method="post" target="_blank">
     <input id="1" name="packname[]" type="checkbox" value="api-album.zip" />
@@ -32,11 +42,13 @@
     <p>
     <input name="commit" type="submit" value="v5backup" />
   </form>
+  </ol>
 
 
 
 
-  <li> <h2> 同步发布备份服务器相关包至正式服务器 (sync to online server) </h2> </li>
+  <li> <h3> 同步发布备份服务器相关包至正式服务器 
+    (sync to online server) </h3> </li>
 
   <p> select && click button: </p>
 

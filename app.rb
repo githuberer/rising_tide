@@ -24,7 +24,7 @@ helpers { include Helpers }
 rtide = Helpers::Main.new
 ##### Routes #####################
 get '/test' do
-  erb :subfile_post
+  erb :test
 end
 
 get '/' do
@@ -32,12 +32,9 @@ get '/' do
 end
 
 get '/redis' do
-  redirect '/redis/flush'
-end
-get '/redis/flush' do
   erb :redis_flush_get
 end
-post '/redis/flush' do
+post '/redis' do
   params['result'] = rtide.redis_flush(*params['hostname'])
   erb :redis_flush_post
   #params.inspect
