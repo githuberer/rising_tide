@@ -1,14 +1,14 @@
 #!/usr/bin/env ruby
-require_relative 'common'
+require_relative 'base'
 
 
 module CheckServerHealth
-  class CheckServerHealth < Common
+  class CheckServerHealth < Base
     def initialize(*hostname)
       @hostname = hostname
     end
 
-    private
+    protected
     def produce_file(cmd, filename)
       file = "upload/check_server_health/#{filename}"
       dir = File.dirname(file)

@@ -1,12 +1,11 @@
-<h1> Deploy Package Results </h1>
+<h2> Deploy Package Results </h2>
+<hr>
 
 
 <ul>
-<% (0...params[:hostname].length).each do |e| %>
-    <hr>
-      <li> hostname : <%= params[:hostname][e] %> </li>
-      <li> <b> result : <%= params[:result][e] %> </b> </li> 
-<% end %>
+      <li> hostname : <%= params[:commit] %> </li>
+      <li> packname : <%= params[:packname] %> </li>
+      <li> <b> result : <%= params[:result] %> </b> </li> 
 </ul>
 
 

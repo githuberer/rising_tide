@@ -3,78 +3,79 @@
 <hr>
 
 <ul>
+  <p>
   <li> <h3>发布至备份服务器 (v5backup server) </h3> </li>
   <ol>
-    <li><p>
-  上传文件至samba目录：
-  <br>
-  windows: \\10.0.0.249\sys-main\
-  <br>
-  mac or linux: smb://10.0.0.249/sys-main/
-  </p></li>
+    <li>
+    <p>
+    上传包文件至samba服务器（即windows共享）以下目录之根目录：
+    <br>
+    windows: \\10.0.0.249\sys-main
+    <br>
+    mac or linux: smb://10.0.0.249/sys-main
+    </p>
+    </li>
 
-  <li>
-    <p> select && click button: </p>
+    <li> 
+    <p> 
+    修改相关配置文件，请访问以下目录：
+    <br>
+    windows: \\10.0.0.249\sys-main\v5backup-config.properties
+    <br>
+    mac or linux: smb://10.0.0.249/sys-main/v5backup-config.properties
+    </p>
+    </li>
+
+    <li>
+    <p>
+    select && click button:
+    <br>
+    <select name="packname" form="v5backup">
+      <option value="api-album.zip">api-album.zip</option>
+      <option value="api-yyalbum.war">api-yyalbum.war</option>
+      <option value="wap-match.war">wap-match.war</option>
+      <option value="web-mc-manager.war">web-mc-manager.war</option>
+      <option value="batch-mc-1.000.000-RELEASE.zip">batch-mc-1.000.000-RELEASE.zip</option>
+      <option value="api-yycrbt.war">api-yycrbt.war</option>
+      <option value="wap-alipay.war">wap-alipay.war</option>
+    </select>
+    <br>
+    <form action="deploy" method="post" id="v5backup">
+      <input name="commit" type="submit" value="v5backup"/>
+    </form>
+  </ol>
+  </p>
   </li>
 
-  <form action="deploy" method="post" target="_blank">
-    <input id="1" name="packname[]" type="checkbox" value="api-album.zip" />
-    <label for="1">api-album.zip</label> <br>
 
-    <input id="2" name="packname[]" type="checkbox" value="api-yyalbum.war" />
-    <label for="2">api-yyalbum.war</label> <br>
 
-    <input id="3" name="packname[]" type="checkbox" value="wap-match.war" />
-    <label for="3">wap-match.war</label> <br>
-
-    <input id="4" name="packname[]" type="checkbox" value="web-mc-manager.war" />
-    <label for="4">web-mc-manager.war</label> <br>
-
-    <input id="5" name="packname[]" type="checkbox" value="batch-mc-1.000.000-RELEASE.zip" />
-    <label for="5">batch-mc-1.000.000-RELEASE.zip</label> <br>
-
-    <input id="6" name="packname[]" type="checkbox" value="api-yycrbt.war" />
-    <label for="6">api-yycrbt.war</label> <br>
-
-    <input id="7" name="packname[]" type="checkbox" value="wap-alipay.war" />
-    <label for="7">wap-alipay.war</label> <br>
-
+  <li> <h3> 发布同步备份服务器相关包至正式服务器 (sync to online server) </h3> </li>
+  <ol>
+    <li>
+    如果需要，请增加配置文件：
+    <hr>
+    预留位置，此功能暂未完成。。。。。
+    </li>
+    <li>
     <p>
-    <input name="commit" type="submit" value="v5backup" />
-  </form>
+    select && click button:
+    <br>
+    <select name="packname" form="sync">
+      <option value="api-album.zip">api-album.zip</option>
+      <option value="api-yyalbum.war">api-yyalbum.war</option>
+      <option value="wap-match.war">wap-match.war</option>
+      <option value="web-mc-manager.war">web-mc-manager.war</option>
+      <option value="batch-mc-1.000.000-RELEASE.zip">batch-mc-1.000.000-RELEASE.zip</option>
+      <option value="api-yycrbt.war">api-yycrbt.war</option>
+      <option value="wap-alipay.war">wap-alipay.war</option>
+    </select>
+    <br>
+    <form action="deploy" method="post" id="sync">
+      <input name="commit" type="submit" value="sync"/>
+    </form>
+    </p>
+    </li>
   </ol>
 
 
-
-
-  <li> <h3> 同步发布备份服务器相关包至正式服务器 
-    (sync to online server) </h3> </li>
-
-  <p> select && click button: </p>
-
-  <form action="deploy" method="post" target="_blank">
-    <input id="11" name="packname[]" type="checkbox" value="api-album.zip" />
-    <label for="11">api-album.zip</label> <br>
-
-    <input id="22" name="packname[]" type="checkbox" value="api-yyalbum.war" />
-    <label for="22">api-yyalbum.war</label> <br>
-
-    <input id="33" name="packname[]" type="checkbox" value="wap-match.war" />
-    <label for="33">wap-match.war</label> <br>
-
-    <input id="44" name="packname[]" type="checkbox" value="web-mc-manager.war" />
-    <label for="44">web-mc-manager.war</label> <br>
-
-    <input id="55" name="packname[]" type="checkbox" value="batch-mc-1.000.000-RELEASE.zip" />
-    <label for="55">batch-mc-1.000.000-RELEASE.zip</label> <br>
-
-    <input id="66" name="packname[]" type="checkbox" value="api-yycrbt.war" />
-    <label for="66">api-yycrbt.war</label> <br>
-
-    <input id="77" name="packname[]" type="checkbox" value="wap-alipay.war" />
-    <label for="77">wap-alipay.war</label> <br>
-
-    <p>
-    <input name="commit" type="submit" value="sync" />
-  </form>
 </ul>

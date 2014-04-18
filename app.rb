@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 require 'sinatra'
 require 'sinatra/reloader' if development?
-require_relative 'helper'
+require_relative 'helpers'
 
 
-use Rack::Auth::Basic, 'RisingTide_Manager' do |username, password|
+use Rack::Auth::Basic, 'RisingTide-Manager' do |username, password|
   username == 'admin' and password == 'admin'
 end
 
@@ -21,21 +21,22 @@ set :sessions, true
 
 
 helpers { include Helpers }
-rtide = Helpers::Main.new
+main = Helpers::Main.new
 ##### Routes #####################
-get '/test' do
-  erb :test
-end
 
 get '/' do
   erb :index
+end
+
+get '/about' do
+  erb :about
 end
 
 get '/redis' do
   erb :redis_flush_get
 end
 post '/redis' do
-  params['result'] = rtide.redis_flush(*params['hostname'])
+  params['result'] = main.redis_flush(params['hostname'])
   erb :redis_flush_post
   #params.inspect
   #params['result'].inspect
@@ -45,10 +46,10 @@ get '/subfile' do
   erb :subfile_get
 end
 post '/subfile' do
-  params['result'] = rtide.subfile(
+  params['result'] = main.subfile(
     params['path'].strip,                   # path(remote server)
     params['myfile'][:tempfile],            # content
-    *params['hostname']                     # hostname
+    params['hostname']                     # hostname
   )
   erb :subfile_post
   #params.inspect
@@ -58,42 +59,23 @@ get '/deploy' do
   erb :deploy_get
 end
 post '/deploy' do
-  #package = params['package']
-  #params['result'] = rtide.deploy("v5backup", *package)
-  #erb :deploy_post
-  params.inspect
+  mdeploy = Helpers::Deploy.new(params['packname'])
+  params['result'] = mdeploy.deploy(params['commit'])
+  #params.inspect
+  erb :deploy_post
 end
 
-get '/sync_original_music' do
-  erb :sync_original_music_get
+get '/sync_mc_om' do
+  erb :sync_mc_om_get
 end
-post '/sync_original_music' do
-
-#  sync = Helpers::SyncOriginalMusic.new(
-#    params['id]',
-#    'v5backup',
-#    'v5db'
-#  )
-
-  params['result'] = rtide.mysql_select(params['id'], "v5backup")
-  params['result'].inspect
+post '/sync_mc_om' do
+  ids = params['id'].split("\s").select { |e| e =~ /^\d+$/ }  # ids is an array
+  msync_mc_om = Helpers::SyncMcOm.new(ids)
+  msync_mc_om.sync_records
+  msync_mc_om.sync_files
+  erb :sync_mc_om_post
+  #params.inspect
 end
-
-get '/daily_work' do
-  erb :mail_daily_work_get
-end
-#post '/daily_work' do
-  #content = params['content']
-  #hostname = params['hostname'] = $hosts.keys
-  #servers = Helpers::MailDailyWork.new(*hostname)
-  #servers.check_disk_space
-  #servers.check_net_traffic
-  #servers.check_process
-  #"done"
-  #net_traffic = servers.check_net_traffic
-  #net_traffic.inspect
-  #erb :daily_mail_post
-#end
 
 
 

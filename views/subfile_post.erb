@@ -1,4 +1,5 @@
 <h2>Subfile Results</h2>
+<hr>
 
 <ul>
 <% upload_web_result = params[:result].shift %>
@@ -6,7 +7,6 @@
 <%# if upload_web_result == 8 %>
 
   <% (0...params[:hostname].length).each do |e| %>
-    <hr>
       <li> hostname : <%= params[:hostname][e] %> </li>
       <li> upload_web_result : <%= upload_web_result %> </li>
       <% result0 = params[:result][e][0] %>

@@ -1,9 +1,9 @@
 <h2> Flush Redis cache Results </h2>
+<hr>
 
 
 <ul>
 <% (0...params[:hostname].length).each do |e| %>
-    <hr>
       <li> hostname : <%= params[:hostname][e] %> </li>
       <li> <b> result : <%= params[:result][e] %> </b> </li> 
 <% end %>

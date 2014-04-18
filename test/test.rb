@@ -1,19 +1,19 @@
 #!/usr/bin/env ruby
-require_relative '../lib/helpers'
-require_relative '../lib/common'
+require_relative '../helper'
+require_relative '../models/common'
 require 'minitest/autorun'
 
 Dir.chdir("../")
 puts "app root dir ==> " + Dir.pwd
 
-include View
-puts "escape_html ==> " + escape_html(" less than: << ||| new line:\n ||| greater than: >>")
+#include View
+#puts "escape_html ==> " + escape_html(" less than: << ||| new line:\n ||| greater than: >>")
 
 puts "\n\n======================================\n\n"
 
 class TestCommon < MiniTest::Unit::TestCase
   def setup
-    @test = Helpers::RisingTide.new
+    @test = Helpers::Main.new
     @hostname = 'v5backup'
     @home_app = '/home/wyy/rising_tide'
   end

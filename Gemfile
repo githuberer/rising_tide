@@ -1,9 +1,11 @@
 
 ######################################
-##  run your app like this:         ##
+##  run app like this:              ##
 ##                                  ##
 ##  1, $ gem install bundler        ##
-##  2, $ bundle exec ruby app.rb    ##
+##  2, $ bundle install             ##
+##  3, $ ./app.rb                   ##
+##                                  ##
 ######################################
 
 #source :rubygems
@@ -20,3 +22,4 @@ gem 'mysql2'
 gem 'rubyzip'
 gem 'whenever', :require => false
 gem 'rake'
+gem 'minitest'
