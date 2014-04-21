@@ -32,9 +32,11 @@ get '/about' do
   erb :about
 end
 
+
 get '/redis' do
   erb :redis_flush_get
 end
+
 post '/redis' do
   params['result'] = main.redis_flush(params['hostname'])
   erb :redis_flush_post
@@ -42,22 +44,26 @@ post '/redis' do
   #params['result'].inspect
 end
 
+
 get '/subfile' do
   erb :subfile_get
 end
+
 post '/subfile' do
   params['result'] = main.subfile(
     params['path'].strip,                   # path(remote server)
     params['myfile'][:tempfile],            # content
-    params['hostname']                     # hostname
+    params['hostname']                      # hostname
   )
   erb :subfile_post
   #params.inspect
 end
 
+
 get '/deploy' do
   erb :deploy_get
 end
+
 post '/deploy' do
   mdeploy = Helpers::Deploy.new(params['packname'])
   params['result'] = mdeploy.deploy(params['commit'])
@@ -65,16 +71,18 @@ post '/deploy' do
   erb :deploy_post
 end
 
+
 get '/sync_mc_om' do
   erb :sync_mc_om_get
 end
+
 post '/sync_mc_om' do
-  ids = params['id'].split("\s").select { |e| e =~ /^\d+$/ }  # ids is an array
+  ids = params['id'].split("\s").select { |e| e =~ /^\d+$/ }  # ids is an Array
   msync_mc_om = Helpers::SyncMcOm.new(ids)
   msync_mc_om.sync_records
   msync_mc_om.sync_files
-  erb :sync_mc_om_post
-  #params.inspect
+  #erb :sync_mc_om_post
+  params.inspect
 end
 
 

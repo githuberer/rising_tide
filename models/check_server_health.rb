@@ -4,7 +4,7 @@ require_relative 'base'
 
 module CheckServerHealth
   class CheckServerHealth < Base
-    def initialize(*hostname)
+    def initialize(hostname)  # hostname is an Array
       @hostname = hostname
     end
 

@@ -8,13 +8,16 @@ require_relative '../config/main'
 
 
 class Base
+
   protected
   def escape_html(text)
     CGI.escapeHTML(text).sub("\n", "<br>")
   end
+
   def to_ip(hostname)
     $hosts[hostname]
   end
+
   def ssh(script, hostname)
     ip = to_ip(hostname)
     Net::SSH.start(
@@ -24,10 +27,12 @@ class Base
       :port => $ssh_port
     ) { |ssh| ssh.exec!(script) }
   end
+
   def upload_web(filename, content)
     path = "upload/#{filename}"
     File.open(path, 'w') { |f| f.write(content.read) }
   end
+
   def upload_scp(path, hostname)        # path example(remote server's file path) => : "/u/bak/ttt.html" 
     filename = File.basename(path)
     result = []
@@ -45,7 +50,7 @@ class Base
     result
   end
 
-  # mysql
+
   def mysql_select(ip, database, table, ids)  # ids is an array
     client = Mysql2::Client.new(
       :host => ip,
@@ -59,7 +64,8 @@ class Base
     )
     records
   end
-  def mysql_query(ip, database, sqlcmds) # sqlcmds is an array
+
+  def mysql_query(ip, database, sqlcmds) # sqlcmds is an Array
     client = Mysql2::Client.new(
       :flags => Mysql2::Client::MULTI_STATEMENTS,
       :host => ip,
@@ -67,12 +73,15 @@ class Base
       :password => $mysql_password,
       :database => database
     )
+
     record = client.query("#{sqlcmds.join("; ")}")
+
     results = []
     results << record.first
     while record.next_result
       results << record.first
     end
+
     results
   end
 
