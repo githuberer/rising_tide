@@ -1,9 +1,8 @@
 rising_tide
 ===========
 
-## maintenance system
 
 ``` shell
-mkdir ./upload
-mkdir ./log
+mkdir upload
+mkdir log
 ```
