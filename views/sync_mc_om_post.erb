@@ -3,7 +3,7 @@
 
 
 <ul>
-      <li> hostname : <%= params[:hostname][e] %> </li>
-      <li> <b> result : <%= params[:result][e] %> </b> </li> 
+      <li> <b> result : <%= "done" if params[:result][0].nil? && params[:result][1].nil? %> </b> </li> 
 </ul>
+
 

@@ -18,8 +18,13 @@ class Base
     $hosts[hostname]
   end
 
-  def ssh(script, hostname)
-    ip = to_ip(hostname)
+  def ssh(script, host)
+    ip = if host =~ /\d+\.\d+\.\d+\.\d+/
+           host
+         else
+           to_ip(host)
+         end
+
     Net::SSH.start(
       ip,
       $ssh_user,
@@ -58,11 +63,11 @@ class Base
       :password => $mysql_password,
       :database => database
     )
-    records = client.query(
+    result = client.query(
       "SELECT * FROM #{table} 
       WHERE om_id in ( #{ids.join(", ")} )" 
     )
-    records
+    result
   end
 
   def mysql_query(ip, database, sqlcmds) # sqlcmds is an Array
@@ -74,12 +79,13 @@ class Base
       :database => database
     )
 
-    record = client.query("#{sqlcmds.join("; ")}")
+    result = client.query("#{sqlcmds.join("; ")}")
 
-    results = []
-    results << record.first
-    while record.next_result
-      results << record.first
+    results = {}
+    results.merge!(result.first)
+    while client.next_result
+      result = client.store_result
+      results.merge!(result.first)
     end
 
     results

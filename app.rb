@@ -77,12 +77,25 @@ get '/sync_mc_om' do
 end
 
 post '/sync_mc_om' do
-  ids = params['id'].split("\s").select { |e| e =~ /^\d+$/ }  # ids is an Array
+  ids = params['ids'].split("\s").select { |e| e =~ /^\d+$/ }  # ids is an Array
   msync_mc_om = Helpers::SyncMcOm.new(ids)
-  msync_mc_om.sync_records
-  msync_mc_om.sync_files
-  #erb :sync_mc_om_post
+  params['result'] = []
+  params['result'] << msync_mc_om.sync_records
+  params['result'] << msync_mc_om.sync_files
+  erb :sync_mc_om_post
+  #params.inspect
+  #msync_mc_om.test
+end
+
+
+get '/v5music' do
+  erb :v5music_get
+end
+post '/v5music' do
+  type = params['type']
+  ids = params['ids']  # ids is an Array
   params.inspect
+  #erb :v5music_post
 end
 
 

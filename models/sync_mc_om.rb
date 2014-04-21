@@ -6,7 +6,7 @@ module SyncMcOm
     #attr_reader :@records_to_insert, :@records_to_update, :@file_to_sync
     def initialize(ids)   # ids is an array
       # sync from master to slave  =example=>  master: v5backup, slave: v5db
-      @master, @slave = to_ip($master), to_ip($slave)
+      @master, @slave, @fileserver = to_ip($master), to_ip($slave), $fileserver
       @database, @table = $database, $table
       @fields = $fields
       @ids = ids
@@ -15,11 +15,11 @@ module SyncMcOm
 
     protected
     def get_records(hostname)  # result is a hash
-      records = mysql_select(hostname, @database, @table, @ids )  # @dis is an array
-      result = {}
-      records.each { |e| result[e.delete("om_id")] = e }
+      result = mysql_select(hostname, @database, @table, @ids )  # @dis is an array
+      records = {}
+      result.each { |e| records[e.delete("om_id")] = e }
       # result["1211"] = { "type" => 0, "sing_num" => nil }; "1211" is an om_id
-      result                       
+      records
       # result = { 1211 => { "type" => 0, "sing_num" => nil } }
     end
 
@@ -115,10 +115,10 @@ module SyncMcOm
     public
     def sync_records
       get_sqlcmds_to_insert
-      mysql_query(@slave, @database, @sqlcmds_to_insert)  # @sqlcmds_to_insert is an array
+      mysql_query(@slave, @database, @sqlcmds_to_insert) unless @sqlcmds_to_insert.empty?  # @sqlcmds_to_insert is an array
 
       get_sqlcmds_to_update
-      mysql_query(@slave, @database, @sqlcmds_to_update)  # @sqlcmds_to_update is an array
+      mysql_query(@slave, @database, @sqlcmds_to_update)  unless @sqlcmds_to_update.empty? # @sqlcmds_to_update is an array
     end
 
 
@@ -127,8 +127,12 @@ module SyncMcOm
       shellcmds = []
 
       @urls_to_syncfile.each {|e| shellcmds << "sudo /u/shscript/syncfile_mc_om.sh #{e}" }
-      ssh("#{shellcmds.join("; ")}", @slave)
+      ssh("#{shellcmds.join("; ")}", @fileserver)
     end
+    #def test
+      #get_sqlcmds_to_update
+      #"aa" if @sqlcmds_to_update.empty?
+    #end
 
   end
 end
