@@ -11,7 +11,7 @@ end
 
 ##### Config #####################
 set :port, '4567'
-set :bind, '127.0.0.1'
+set :bind, '0.0.0.0'
 set :lock, true
 set :sessions, true                     
 #set environment, :production
