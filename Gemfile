@@ -13,7 +13,7 @@ source 'https://rubygems.org'
 
 #gem 'haml'            
 #gem 'erubis'  
-#gem 'rack'
+gem 'rack'
 gem 'sinatra'
 gem 'thin'
 gem 'net-scp' 
