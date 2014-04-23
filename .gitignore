@@ -4,6 +4,7 @@ config/main.rb
 uploads
 upload
 log
+app.pid
 
 
 # vim #
