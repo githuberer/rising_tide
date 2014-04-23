@@ -9,6 +9,7 @@ home_app=$(dirname $(realpath $0))
 log=$home_app/log/app.log
 pid=$home_app/app.pid
 
+test -f $log || touch $log
 test -f $pid || touch $pid
 
 case $param in
