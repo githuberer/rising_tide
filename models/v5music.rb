@@ -25,7 +25,7 @@ module V5music
       end
       # filenames example: {"square"=>["square/index.html", "square/images/03_02.jpg", ], "specialtopic"=>["specialtopic/index.html", "specialtopic/images/wap_02.jpg", "specialtopic/images/wap_01.jpg"]}
 
-      @zipfile = "upload/v5html.zip"
+      @zipfile = "upload/v5music/v5html.zip"
       File.delete(@zipfile) if File.exist?(@zipfile)
 
       Zip::File.open(@zipfile, Zip::File::CREATE) do |zipf|
