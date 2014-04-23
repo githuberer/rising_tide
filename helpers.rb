@@ -11,6 +11,7 @@ module Helpers
   include Deploy
   include SyncMcOm
   include CheckServerHealth
+  include V5music
 end
 
 

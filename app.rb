@@ -5,7 +5,7 @@ require_relative 'helpers'
 
 
 use Rack::Auth::Basic, 'RisingTide-Manager' do |username, password|
-  username == 'admin' and password == 'admin'
+  username == $rtm_user and password == $rtm_password
 end
 
 
@@ -78,10 +78,16 @@ end
 
 post '/sync_mc_om' do
   ids = params['ids'].split("\s").select { |e| e =~ /^\d+$/ }  # ids is an Array
-  msync_mc_om = Helpers::SyncMcOm.new(ids)
-  params['result'] = []
-  params['result'] << msync_mc_om.sync_records
-  params['result'] << msync_mc_om.sync_files
+
+  unless ids.empty?
+    msync_mc_om = Helpers::SyncMcOm.new(ids)
+    params['result'] = []
+    params['result'] << msync_mc_om.sync_records
+    params['result'] << msync_mc_om.sync_files
+  else
+    redirect 'sync_mc_om'
+  end
+
   erb :sync_mc_om_post
   #params.inspect
   #msync_mc_om.test
@@ -91,12 +97,27 @@ end
 get '/v5music' do
   erb :v5music_get
 end
+
 post '/v5music' do
   type = params['type']
-  ids = params['ids']  # ids is an Array
-  params.inspect
-  #erb :v5music_post
+  ids = params['ids'].split("\s").select { |e| e =~ /^\d{8}$/ }  # ids is an Array
+
+  unless ids.empty?
+    mv5music = Helpers::V5music.new(type, ids)
+    params['result'] = mv5music.deploy
+  else 
+    redirect '/v5music'
+  end
+
+  #params.inspect
+  erb :v5music_post
 end
 
+get '/debug' do
+  erb :notyet
+end
 
+get '/monitor' do
+  erb :notyet
+end
 

@@ -1,0 +1,12 @@
+<h2> Results </h2>
+<hr>
+
+
+<ul>
+  <% if params[:result].empty? %>
+    <li><b> OK </b></li>
+  <% else %>
+    <li> <b> <%= params[:result] %> </b> </li> 
+  <% end %>
+</ul>
+

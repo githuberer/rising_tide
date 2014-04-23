@@ -1,25 +1,32 @@
 #!/usr/bin/env ruby
-# This is an example file of config.rb
-# Modify variables below and then execute shell command: 'mv config-example.rb config.rb'
 
-$port_ssh = '22'
-$user_ssh = 'user1'
-$password_ssh = "password1"
+# app admin
+$rtm_user = 'admin'
+$rtm_password = 'admin'
 
-# hosts
+# ssh
+$ssh_port = '22'
+$ssh_user = 'sshuser'
+$ssh_password = "passwd"
+
 $hosts = {
-  "v5app" => "192.168.1.1",
+  "v5app" => "192.168.1.0",
+  "v5app1" => "192.168.1.1",
   "v5app2" => "192.168.1.2",
-  "v5file" => "192.168.1.3",
-  "v5backup" => "192.168.1.4",
-  "v5db2" =>  "192.168.1.5", 
-  "v5db" => "192.168.1.6"
+  "v5app3" => "192.168.1.3",
+  "v5db" => "192.168.1.4",
+  "v5db2" => "192.168.1.5",
+  "v5f" => "192.168.1.10",
 }
 
-$user_mysql = 'user2'
-$password_mysql = 'password2'
+# sync_mc_om
+$master = 'v5db'
+$slave = 'v5db2'
+$fileserver = 'v5f'
+$mysql_user = 'mysql'
+$mysql_password = '1234'
 $database = 'test'
 $table = 'test'
-$fields_filepath = %w{ om_path lyric_url karaoke_url intonation_url lrc }
+$fields = %w[ om_path test lrc ]  # filepaths: used for sync files
 
 

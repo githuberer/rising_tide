@@ -3,6 +3,7 @@
 . /etc/profile.d/rvm.sh
 
 HOME=/root
+log=log/init.log
 
 param=$1
 home_app=$(dirname $(realpath $0))
@@ -10,7 +11,7 @@ home_app=$(dirname $(realpath $0))
 case $param in
     start)
         echo -n "Start Rising_tide ... "
-        ( cd $home_app && nohup /usr/bin/env ruby ./app.rb &> /var/log/rising_tide.log &
+        ( cd $home_app && nohup /usr/bin/env ruby ./app.rb &> $home_app/$log &
         echo $! > /run/rising_tide.pid )
         echo "pid: $(cat /run/rising_tide.pid)"
         ;;

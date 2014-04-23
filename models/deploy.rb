@@ -11,18 +11,20 @@ module Deploy
 
     protected
     def confile_append(hostname)
-      package_path = "upload/#{@packname}"
-      confile_path_system = "upload/#{hostname}-config.properties/#{@packname_dotfront}"
-      confile_path_package = if @packname == "api-album.zip"
+      package_uri = "upload/#{@packname}"
+      confile_uri_system = "upload/#{hostname}-config.properties/#{@packname_dotfront}"
+      confile_uri_package = if @packname == "api-album.zip"
                                "#{@packname_dotfront}/config.properties"
                              else
                                "WEB-INF/classes/config.properties"
                              end
       Zip.continue_on_exists_proc = true  # configure rubyzip to overwrite existing files while creating a .zip file
-      Zip::File.open(package_path, Zip::File::CREATE) do |f|
-        f.add(confile_path_package, confile_path_system)
+      #Zip::File.open(package_uri, Zip::File::CREATE) do |f|
+      Zip::File.open(package_uri) do |f|
+        f.add(confile_uri_package, confile_uri_system)
       end
     end
+
     def update_package(hostname)
       script = <<-EOF
       sudo /u/shscript/update-package/#{@packname_dotfront}.sh
@@ -30,6 +32,7 @@ module Deploy
       upload_scp("/temp/#{@packname}", hostname)
       ssh(script, hostname)
     end
+
 
     public
     def deploy(action)

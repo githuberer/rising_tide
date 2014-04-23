@@ -33,7 +33,11 @@ input[type=submit]
   color: #CC342D;
   font-size: 14px;
 }
-
+select
+{
+  width: 200px;
+  height: 20px;
+}
 
 /* ************center********************* */
 .center {
@@ -65,15 +69,15 @@ div.nav {
   border-bottom-right-radius: 6px;
 }
 div.nav a {
-color: #F6F6F3;
-text-shadow: 0 1px 0 #000;
-background-color: #585450;
-display: inline-block;
-padding: 9px 12px;
-font-weight: normal;
-text-decoration: none;
-float: left;
-font-size: 15px;
+  color: #F6F6F3;
+  text-shadow: 0 1px 0 #000;
+  background-color: #585450;
+  display: inline-block;
+  padding: 9px 12px;
+  font-weight: normal;
+  text-decoration: none;
+  float: left;
+  font-size: 15px;
 }
 div.nav a:link,a:visited {
   display:block;
@@ -118,6 +122,7 @@ div#sidebar a:link,a:visited {
   text-decoration:none;
 }
 div#sidebar a:hover,a:active {
+  /*color:#FF0000;*/
   background-color:#FF0000;
 }
 div#sidebar h2 {
@@ -130,7 +135,7 @@ div#sidebar h2 {
   line-height: 20px;
 }
 div#sidebar ul {
-padding: 0;
-list-style: none;
-margin: 6px 0 30px;
+  padding: 0;
+  list-style: none;
+  margin: 6px 0 30px;
 

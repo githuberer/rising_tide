@@ -2,26 +2,65 @@
 <hr>
 
 
-<p><b> 键入id号，然后点击按钮开始发布。 </b></p>
-<p><i> 注意：每两个id号之间需要用至少一个“空格” “回车”或者“tab”键分割开。 </p></i>
+<h3>说明</h3>
 
+<ul>
 
-<form action="v5music" method="post" id="v5music">
-
-  <select name="type" form="v5music">
-    <option value="samsung-free">samsung-free</option>
-    <option value="samsung-bill">samsung-bill</option>
-    <option value="other-free">other-free</option>
-    <option value="other-bill">other-bill</option>
-  </select>
-
+  <li>
   <p>
-  <textarea rows="20" cols="50" name="ids"> </textarea>
+
+  若需要，请先上传包文件至samba服务器（即windows共享）以下目录之根目录，否则自动使用旧包：
+  <ul>
+    windows: \\10.0.0.249\sys-main\v5music
+    <br/>
+    mac or linux: smb://10.0.0.249/sys-main/v5music
+  </ul>
+
   </p>
+  </li>
 
 
-  <input name="commit" type="submit" />
-</form>
+
+  <li>
+  <p>
+
+  选择一个类型，然后键入id号，点击按钮开始发布。
+  <br/>
+
+  <i>  注意：
+    
+    <ul>
+      <li>
+      每两个id号之间需要用至少一个“空格” “回车”或者“tab”键分割开。
+      </li>
+      <li>
+      id必须为8位的数字。
+      </li>
+    </ul></i>
+
+  </p>
+  </li>
+
+</ul>
+
+
+<h3>操作</h3>
+
+  <form action="v5music" method="post" id="v5music">
+    <select name="type" form="v5music">
+      <option value="samsung-free">samsung-free</option>
+      <option value="samsung-bill">samsung-bill</option>
+      <option value="other-free">other-free</option>
+      <option value="other-bill">other-bill</option>
+      <option value="optional">optional</option>
+    </select>
+
+    <textarea rows="15" cols="50" name="ids"></textarea>
+    <br/>
+
+    <input name="commit" type="submit" />
+  </form>
+  </li>
 
 
 

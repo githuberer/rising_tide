@@ -101,13 +101,13 @@ module SyncMcOm
     end
 
 
-    def get_urls_to_syncfile
+    def get_uris_to_syncfile
       get_records_master unless @records_master
       get_records_slave unless @records_slave
-      @urls_to_syncfile = []
+      @uris_to_syncfile = []
 
       Marshal.load( Marshal.dump(@records_master) ).each_value do |v|
-        @fields.each { |f| @urls_to_syncfile << v[f] unless v[f].nil? }
+        @fields.each { |f| @uris_to_syncfile << v[f] unless v[f].nil? }
       end
     end
 
@@ -115,18 +115,23 @@ module SyncMcOm
     public
     def sync_records
       get_sqlcmds_to_insert
-      mysql_query(@slave, @database, @sqlcmds_to_insert) unless @sqlcmds_to_insert.empty?  # @sqlcmds_to_insert is an array
+      re1 = mysql_query(@slave, @database, @sqlcmds_to_insert) unless @sqlcmds_to_insert.empty?  # @sqlcmds_to_insert is an array
 
       get_sqlcmds_to_update
-      mysql_query(@slave, @database, @sqlcmds_to_update)  unless @sqlcmds_to_update.empty? # @sqlcmds_to_update is an array
+      re2 = mysql_query(@slave, @database, @sqlcmds_to_update)  unless @sqlcmds_to_update.empty? # @sqlcmds_to_update is an array
+
+      result = []
+      result << re1 unless re1.empty?
+      result << re2 unless re2.empty?
+      result
     end
 
 
     def sync_files
-      get_urls_to_syncfile
+      get_uris_to_syncfile
       shellcmds = []
 
-      @urls_to_syncfile.each {|e| shellcmds << "sudo /u/shscript/syncfile_mc_om.sh #{e}" }
+      @uris_to_syncfile.each {|e| shellcmds << "sudo /u/shscript/syncfile_mc_om.sh #{e}" }
       ssh("#{shellcmds.join("; ")}", @fileserver)
     end
     #def test
