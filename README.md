@@ -8,7 +8,7 @@ For Ubuntu/Debian user
 ``` shell
 aptitude -y install dirname realpath
 ```
-For Centos/Redhat user
+For CentOS/Redhat user
 ``` shell
 yum -y install dirname realpath
 ```
