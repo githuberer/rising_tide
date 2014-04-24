@@ -14,30 +14,39 @@ test -f $pid || touch $pid
 
 case $param in
     start)
-        if [[ -z $(ps -p $(cat $pid) -o comm=) ]]
+        if [[ -z $(<$pid) ]]
         then
-            echo -n "Start Rising_tide ... "
-            {
-                cd $home_app && \
-                    ( 
+            echo -en "\n Start Rising_tide ... "
+            cd $home_app && \
+            { 
                 nohup /usr/bin/env ruby ./app.rb &> $log &
                 echo $! > $pid
-                )
             }
-            echo "pid: $(cat $pid)"
+            echo -e "pid: $(<$pid) \n"
         else
-            echo "Rising_tide is already running, pid: $(cat $pid)"
+            echo -e "\n Rising_tide is already running, pid: $(<$pid) \n"
             exit
         fi
         ;;
     stop)
-        echo -n "Stop Rising_tide ... "
-        kill -9 $(cat $pid)
-        : > $pid
+        if [[ -z $(<$pid) ]]
+        then
+            echo -e "\n Rising_tide not running, at least pid file is empty. \n"
+            exit
+        else
+            echo -en "\n Stop Rising_tide ... "
+            {
+                kill -9 $(<$pid)
+                : > $pid
+            }
+            echo -e "[ OK ] \n"
+        fi
         #kill -9 $(ps -ef |grep app.rb |grep -v "vim" |grep -v "grep" |awk '{print $2}' |paste -s -d " ")
         ;;
     status)
+        echo ""
         ps -ef |grep app.rb|grep -v "grep" |grep -v "vim"
+        echo ""
         ;;
     restart)
         $home_app/init.sh stop
@@ -45,8 +54,8 @@ case $param in
         $home_app/init.sh start
         ;;
     *)
-    echo -e "\n PARAMS: start | stop | status \n"
-    ;;
+        echo -e "\n PARAMS: start | stop | status \n"
+        ;;
 esac
 
 
