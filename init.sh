@@ -7,7 +7,7 @@ HOME=/root
 param=$1
 home_app=$(dirname $(realpath $0))
 log=$home_app/log/app.log
-pid=$home_app/app.pid
+pid=$home_app/pid
 
 
 test -d $home_app/log || mkdir $home_app/log
