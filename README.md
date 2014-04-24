@@ -28,7 +28,7 @@ Configure
 ```shell
 mv config/main_example.rb config/main.rb
 ```
-And then, modify this file according to the specific envrionment: config/main.rb
+And then, modify this file(config/main.rb) according to the specific envrionment.
 
 
 Run it
