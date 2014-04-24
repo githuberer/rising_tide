@@ -1,5 +1,6 @@
 Rising-tide Manager
 ===========
+Please run command in the application root direcotry unless otherwise specified.
 
 
 System environment initialize
@@ -16,7 +17,6 @@ yum -y install dirname realpath
 
 Ruby environment initialize
 -----------
-In the application root direcotry, run command below:
 ```shell
 gem install bundler
 bundle install
