@@ -4,9 +4,13 @@ Rising-tide Manager
 
 System environment initialize
 -----------
+For Ubuntu/Debian user
 ``` shell
-mkdir upload
-mkdir log
+aptitude -y install dirname realpath
+```
+For Centos/Redhat user
+``` shell
+yum -y install dirname realpath
 ```
 
 
@@ -18,7 +22,7 @@ bundle install
 ```
 
 
-config Rising-tide Manager
+Configure
 -----------
 ```shell
 mv config/main_example.rb config/main.rb
@@ -26,10 +30,13 @@ mv config/main_example.rb config/main.rb
 And then, modify this file according to the specific envrionment: config/main.rb
 
 
-running Rising-tide Manager
+Run it
 -----------
 ```shell
 init.sh start
 init.sh stop
 init.sh restart
 ```
+
+
+

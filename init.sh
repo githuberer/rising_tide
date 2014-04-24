@@ -9,6 +9,9 @@ home_app=$(dirname $(realpath $0))
 log=$home_app/log/app.log
 pid=$home_app/app.pid
 
+
+test -d $home_app/log || mkdir $home_app/log
+test -d $home_app/upload || mkdir $home_app/upload
 test -f $log || touch $log
 test -f $pid || touch $pid
 
