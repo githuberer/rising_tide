@@ -22,7 +22,7 @@ case $param in
             echo -en "\n Start Rising_tide ... "
             cd $home_app && \
             { 
-                nohup /usr/bin/env ruby ./app.rb &> $log &
+                nohup /usr/bin/env ruby ./route.rb &> $log &
                 echo $! > $pid
             }
             echo -e "pid: $(<$pid) \n"
@@ -44,11 +44,11 @@ case $param in
             }
             echo -e "[ OK ] \n"
         fi
-        #kill -9 $(ps -ef |grep app.rb |grep -v "vim" |grep -v "grep" |awk '{print $2}' |paste -s -d " ")
+        #kill -9 $(ps -ef |grep route.rb |grep -v "vim" |grep -v "grep" |awk '{print $2}' |paste -s -d " ")
         ;;
     status)
         echo ""
-        ps -ef |grep app.rb|grep -v "grep" |grep -v "vim"
+        ps -ef |grep route.rb|grep -v "grep" |grep -v "vim"
         echo ""
         ;;
     restart)
