@@ -19,6 +19,13 @@ $hosts = {
   "v5f" => "192.168.1.10",
 }
 
+# deploy
+$packnames = %w[
+  name1.zip
+  name2.war
+  name3.war
+]
+
 # sync_mc_om
 $master = 'v5db'
 $slave = 'v5db2'
