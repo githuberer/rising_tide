@@ -33,9 +33,9 @@ And then, modify this file according to the specific envrionment: config/main.rb
 Run it
 -----------
 ```shell
-init.sh start
-init.sh stop
-init.sh restart
+./init.sh start
+./init.sh stop
+./init.sh restart
 ```
 
 
