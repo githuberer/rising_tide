@@ -16,6 +16,7 @@ yum -y install dirname realpath
 
 Ruby environment initialize
 -----------
+In the application root direcotry, run command below:
 ```shell
 gem install bundler
 bundle install
