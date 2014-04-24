@@ -65,10 +65,17 @@ get '/deploy' do
 end
 
 post '/deploy' do
-  mdeploy = Helpers::Deploy.new(params['packname'])
-  params['result'] = mdeploy.deploy(params['commit'])
-  #params.inspect
-  erb :deploy_post
+  if params.keys.include?('myfile')
+    content = params['myfile'][:tempfile]
+    packname = params['myfile'][:filename]
+    action = params['commit']
+    mdeploy = Helpers::Deploy.new(packname, content, action)
+    params['result'] = mdeploy.deploy
+    erb :deploy_post
+    #params.inspect
+  else
+    redirect 'deploy'
+  end
 end
 
 

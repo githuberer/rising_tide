@@ -5,19 +5,11 @@
   <p>
   <h3>发布至备份服务器 (v5backup server) </h3>
   <ol>
-    <li>
-    <p>
-    上传包文件至samba服务器（即windows共享）以下目录之根目录：
-    <br>
-    windows: \\10.0.0.249\sys-main
-    <br>
-    mac or linux: smb://10.0.0.249/sys-main
-    </p>
-    </li>
 
+    
     <li> 
     <p> 
-    修改相关配置文件，请访问以下目录：
+    如需修改相关配置文件，请访问以下目录：
     <br>
     windows: \\10.0.0.249\sys-main\v5backup-config.properties
     <br>
@@ -25,23 +17,41 @@
     </p>
     </li>
 
+
     <li>
     <p>
-    select && click button:
+    <form action="deploy" method="post" enctype='multipart/form-data'>
+    <input type="file" name="myfile"/>
+    </br>
+    上传需要发布的包文件。
+    <i>
     <br>
-    <select name="packname" form="v5backup">
-      <option value="api-album.zip">api-album.zip</option>
-      <option value="api-yyalbum.war">api-yyalbum.war</option>
-      <option value="wap-match.war">wap-match.war</option>
-      <option value="web-mc-manager.war">web-mc-manager.war</option>
-      <option value="batch-mc-1.000.000-RELEASE.zip">batch-mc-1.000.000-RELEASE.zip</option>
-      <option value="api-yycrbt.war">api-yycrbt.war</option>
-      <option value="wap-alipay.war">wap-alipay.war</option>
-    </select>
-    <br>
-    <form action="deploy" method="post" id="v5backup">
-      <input name="commit" type="submit" value="v5backup"/>
-    </form>
+      注意，上传文件的文件名需为如下其中之一：
+      <% $packnames.each do |e| %>
+        <ul>
+          <li>
+            <%= e %> 
+          </li>
+        </ul>
+        <% end %>
+      </i>
+
+      </p>
+    </li>
+
+
+      <li>
+      <p>
+      点击按钮开始发布：
+      <br>
+      <form action="deploy" method="post" id="v5backup">
+        <input name="commit" type="submit" value="v5backup"/>
+      </form>
+      </p>
+    </li>
+
+
+
   </ol>
   </p>
   </li>
