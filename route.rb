@@ -69,6 +69,7 @@ post '/deploy' do
     content = params['myfile'][:tempfile]
     packname = params['myfile'][:filename]
     action = params['commit']
+
     if $packnames.include?(packname)
       mdeploy = Helpers::Deploy.new(packname, content, action)
       params['result'] = mdeploy.deploy
@@ -77,6 +78,7 @@ post '/deploy' do
     else
       redirect 'deploy'
     end
+
   else
     redirect 'deploy'
   end
@@ -95,13 +97,12 @@ post '/sync_mc_om' do
     params['result'] = []
     params['result'] << msync_mc_om.sync_records
     params['result'] << msync_mc_om.sync_files
+    erb :sync_mc_om_post
+    #params.inspect
+    #msync_mc_om.test
   else
     redirect 'sync_mc_om'
   end
-
-  erb :sync_mc_om_post
-  #params.inspect
-  #msync_mc_om.test
 end
 
 
@@ -115,13 +116,19 @@ post '/v5music' do
 
   unless ids.empty?
     mv5music = Helpers::V5music.new(type, ids)
+
+    if params.keys.include?('myfile')
+      content = params['myfile'][:tempfile]
+      #filename = params['myfile'][:filename]
+      filename = "v5music.zip"
+      mv5music.update_localfile(filename, content)
+    end
+
     params['result'] = mv5music.deploy
+    erb :v5music_post
   else 
     redirect '/v5music'
   end
-
-  #params.inspect
-  erb :v5music_post
 end
 
 get '/debug' do

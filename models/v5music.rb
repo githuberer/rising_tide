@@ -6,10 +6,11 @@ module V5music
   class V5music < Base
     def initialize(type, ids)  # ids is an Array
       @type, @ids = type, ids
+      @types = $types
       @hostname = "tc139"
     end
 
-    private
+    protected
     def zip_file(id)
       folder = "upload/v5music/#{@type}"
       filenames = {}
@@ -41,6 +42,23 @@ module V5music
     end
 
     public
+    def update_localfile(filename, content)
+      upload_web(filename, content)
+
+      Zip.on_exists_proc = true
+      Zip::File.open("upload/#{filename}") do |zipf|
+        zipf.each do |f|
+          matchs = @types.join('|')
+
+          if f.name =~ /^(#{matchs})/
+            fpath=File.join("upload/v5music", f.name) 
+            FileUtils.mkdir_p(File.dirname(fpath))
+            zipf.extract(f, fpath)
+          end
+        end
+      end
+    end
+
     def deploy
       result = []
       scp_file_uri = "/temp/v5html.zip"
