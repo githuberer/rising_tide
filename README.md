@@ -1,6 +1,6 @@
 Rising-tide Manager
 ===========
-Please run command in the application root direcotry unless otherwise specified.
+Please run command in the application root directory unless otherwise specified.
 
 
 System environment initialize
@@ -28,7 +28,7 @@ Configure
 ```shell
 mv config/main_example.rb config/main.rb
 ```
-And then, modify this file(config/main.rb) according to the specific envrionment.
+And then, modify this file(config/main.rb) according to the specific environment.
 
 
 Run it
