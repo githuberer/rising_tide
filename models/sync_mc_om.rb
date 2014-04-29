@@ -121,9 +121,14 @@ module SyncMcOm
       re2 = mysql_query(@slave, @database, @sqlcmds_to_update)  unless @sqlcmds_to_update.empty? # @sqlcmds_to_update is an array
 
       result = []
-      result << re1 unless re1.empty?
-      result << re2 unless re2.empty?
-      result
+      result << re1 if re1
+      result << re2 if re2
+
+      if result.empty?
+        nil
+      else
+        result
+      end
     end
 
 

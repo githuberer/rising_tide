@@ -81,13 +81,14 @@ class Base
 
     result = client.query("#{sqlcmds.join("; ")}")
 
-    results = {}
-    results.merge!(result.first)
-    while client.next_result
-      result = client.store_result
+    if result
+      results = {}
       results.merge!(result.first)
+      while client.next_result
+        result = client.store_result
+        results.merge!(result.first)
+      end
     end
-
     results
   end
 
