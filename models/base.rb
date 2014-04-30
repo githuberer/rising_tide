@@ -81,8 +81,8 @@ class Base
 
     result = client.query("#{sqlcmds.join("; ")}")
 
+    results = {}
     if result
-      results = {}
       results.merge!(result.first)
       while client.next_result
         result = client.store_result
