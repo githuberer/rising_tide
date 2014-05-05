@@ -10,7 +10,7 @@ end
 
 
 ##### Config #####################
-set :port, '4567'
+set :port, $app_port
 set :bind, '0.0.0.0'
 set :lock, true
 set :sessions, true                     
@@ -64,14 +64,21 @@ get '/deploy' do
   erb :deploy_get
 end
 
+post '/deploy_view_confile' do
+  confile_uri = "upload/v5backup-config.properties/#{params['packname'].sub(/\.\w+$/, '')}"
+  params['result'] = File.readlines(confile_uri).map { |e| e+"\n" }
+  erb :deploy_view_confile, :layout => false
+end
+
 post '/deploy' do
-  if params.keys.include?('myfile')
+  if params['myfile']
     content = params['myfile'][:tempfile]
     packname = params['myfile'][:filename]
     action = params['commit']
+    confile_content = params['confile_content'] if params['confile_content']
 
     if $packnames.include?(packname)
-      mdeploy = Helpers::Deploy.new(packname, content, action)
+      mdeploy = Helpers::Deploy.new(packname, content, action, confile_content ||= nil)
       params['result'] = mdeploy.deploy
       #params.inspect 
       erb :deploy_post
@@ -98,8 +105,8 @@ post '/sync_mc_om' do
     params['result'] << msync_mc_om.sync_records
     params['result'] << msync_mc_om.sync_files
     erb :sync_mc_om_post
-    #params.inspect
     #msync_mc_om.test
+    #params['result'].inspect
   else
     redirect 'sync_mc_om'
   end
@@ -138,4 +145,7 @@ end
 get '/monitor' do
   erb :notyet
 end
+
+
+
 

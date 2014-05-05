@@ -4,15 +4,42 @@ require_relative 'base'
 
 module Deploy
   class Deploy < Base
-    def initialize(packname, content, action)
+    def initialize(packname, content, action, confile_content=nil)
       @packname, @content, @action = packname, content, action
-      @packname_dotfront = packname.sub(/\..*/, '')
+      @packname_dotfront = packname.sub(/\.\w+$/, '')
+      @confile_content = confile_content
     end
 
     protected
     def upload
       upload_web(@packname, @content)
     end
+
+    def confile_modify(hostname, content)
+      content_add = {}
+      content.split("\n").each do |e|
+        if e =~ /.+=.+/
+          a = e.split("=", 2).map { |e| e.strip }
+          content_add.store(*a)
+        end
+      end
+
+      confile_uri_system = "upload/#{hostname}-config.properties/#{@packname_dotfront}"
+      confile = {}
+      IO.readlines(confile_uri_system).each do |e|
+        if e =~ /.+=.+/
+          a = e.split("=", 2).map { |e| e.strip }
+          confile.store(*a)
+        end
+      end
+
+      confile.merge!(content_add)
+
+      File.open(confile_uri_system, 'w') do |f|
+        confile.each { |k,v| f.write("#{k}=#{v}\n") }
+      end
+    end
+
 
     def confile_append(hostname)
       package_uri = "upload/#{@packname}"
@@ -39,10 +66,10 @@ module Deploy
 
 
     public
-
     def deploy
       upload
       if @action == (hostname = "v5backup")
+        confile_modify(hostname, @confile_content) if @confile_content
         confile_append(hostname)
         upload_scp("/temp/#{@packname}", hostname)
         update_package(hostname)

@@ -137,7 +137,7 @@ module SyncMcOm
       shellcmds = []
 
       @uris_to_syncfile.each {|e| shellcmds << "sudo /u/shscript/syncfile_mc_om.sh #{e}" }
-      ssh("#{shellcmds.join("; ")}", @fileserver)
+      ssh("#{shellcmds.join('; ')}", @fileserver)
     end
     #def test
       #get_sqlcmds_to_update
