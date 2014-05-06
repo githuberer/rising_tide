@@ -66,7 +66,7 @@ end
 
 post '/deploy_view_confile' do
   confile_uri = "upload/v5backup-config.properties/#{params['packname'].sub(/\.\w+$/, '')}"
-  params['result'] = File.readlines(confile_uri).map { |e| e+"\n" }
+  params['result'] = File.readlines(confile_uri)
   erb :deploy_view_confile, :layout => false
 end
 

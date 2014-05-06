@@ -27,7 +27,7 @@ module Deploy
       confile_uri_system = "upload/#{hostname}-config.properties/#{@packname_dotfront}"
       confile = {}
       IO.readlines(confile_uri_system).each do |e|
-        if e =~ /.+=.+/
+        if e =~ /\w+=\w+/
           a = e.split("=", 2).map { |e| e.strip }
           confile.store(*a)
         end
