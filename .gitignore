@@ -3,6 +3,8 @@
 config/main.rb
 uploads
 upload
+download
+downloads
 log
 pid
 

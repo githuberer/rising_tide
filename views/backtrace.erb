@@ -1,0 +1,16 @@
+<h2> 回溯操作过的文件 </h2>
+<hr>
+
+
+<a href="/backtrace/rearrange"> 没找到最新操作过的文件？点我马上更新列表！</a>
+
+<% params['fileuris'].each do |date, uris| %>
+
+    <h3><%= date %></h3>
+    <% uris.each do |u| %>
+      <a href="/backtrace/<%= u %>"> <%= u.sub(/download\//, "") %></a> <br>
+    <% end %>
+
+<% end %>
+
+

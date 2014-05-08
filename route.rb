@@ -138,6 +138,26 @@ post '/v5music' do
   end
 end
 
+
+get '/backtrace' do
+  dirs = Dir.glob("download/????-??-??").sort { |x, y| y <=> x }
+  params['fileuris'] = {}
+  dirs.each do |e| 
+    params['fileuris'].store(e.sub(/download\//, ""), Dir.glob("#{e}/**"))
+  end
+  erb :backtrace
+end
+
+get "/backtrace/rearrange" do
+  Rearrange.upload_to_download
+  redirect '/backtrace'
+end
+
+get '/backtrace/*' do |fileuri|
+  send_file "#{fileuri}"
+end
+
+
 get '/debug' do
   erb :notyet
 end
@@ -145,7 +165,5 @@ end
 get '/monitor' do
   erb :notyet
 end
-
-
 
 

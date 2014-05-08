@@ -12,6 +12,7 @@ module Helpers
   include SyncMcOm
   include CheckServerHealth
   include V5music
+  include Rearrange
 end
 
 

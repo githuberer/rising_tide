@@ -12,6 +12,12 @@ task :check_server_health do
   servers.check_net_traffic
 end
 
+task :rearrange_upload_to_downlaod do
+  Rearrange.upload_to_download
+end
 
+task :clear_download do
+  Rearrange.clear_download
+end
 
 
