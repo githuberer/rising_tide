@@ -8,10 +8,12 @@ System environment initialize
 For Ubuntu/Debian user
 ``` shell
 aptitude -y install dirname realpath
+aptitude -y install imagemagick libmagickwand-dev
 ```
 For CentOS/Redhat user
 ``` shell
 yum -y install dirname realpath
+yum -y install ImageMagick-devel
 ```
 
 
@@ -19,6 +21,7 @@ Ruby environment initialize
 -----------
 ```shell
 gem install bundler
+gem install rmagick
 bundle install
 ```
 
