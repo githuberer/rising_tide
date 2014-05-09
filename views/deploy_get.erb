@@ -1,96 +1,90 @@
 
-<h2> 发布Tomcat相关包 </h2>
+<h2> 麦唱服务器发布相关 </h2>
 <hr>
 
-<h3>发布至备份服务器 (v5backup server) </h3>
+<h3> 备份服务器 (v5backup server) </h3>
 
 
-  <ul>
+<ul>
 
 
-      <li>
-    <p>
-      查看配置文件：
-      <br>
-      <form action="deploy_view_confile" method="post" id="view_confile" target="_blank">
-      
-        <select name="packname" form="view_confile">
-          <% $packnames.each do |e| %>
-            <option value="<%= e %>"><%= e %></option>
-          <% end %>
-        </select>
-      
-        <input name="commit" type="submit" value="查看"/>
-      </form>
-    </p>
+  <li>
+  <form action="deploy/confile" id="confile" target="_blank">
 
-      </li>
-
-
-
-
-
-      <li> 
-
-      <p>
-      <form action="deploy" method="post" enctype='multipart/form-data'>
-        上传需要发布的包文件。
-        <br>
-        <input type="file" name="myfile"/>
-        </p>
-
-
-        <p>
-        如果需要，请输入要增加或者修改的配置文件的内容：
-        <textarea rows="7" cols="50" name="confile_content"></textarea>
-        </p>
-
-
-
-        <p>
-        点击按钮开始发布：
-        <br>
-        <input name="commit" type="submit" value="v5backup"/>
-      </form>
-
-      </p>
-
-      </li>
-
-
-  </ul>
-
-
+  <p>
+  <strong> 配置文件： </strong>
 
   <br>
 
-
-
-  <h3> 发布同步备份服务器相关包至正式服务器 (sync to online server) </h3>
-  <ol>
-    <li>
-    如果需要，请增加配置文件：
-    预留位置，此功能暂未完成。。。。。
-    </li>
-    <li>
-    <p>
-    select && click button:
-    <br>
-    <select name="packname" form="sync">
-      <option value="api-album.zip">api-album.zip</option>
-      <option value="api-yyalbum.war">api-yyalbum.war</option>
-      <option value="wap-match.war">wap-match.war</option>
-      <option value="web-mc-manager.war">web-mc-manager.war</option>
-      <option value="batch-mc-1.000.000-release.zip">batch-mc-1.000.000-release.zip</option>
-      <option value="api-yycrbt.war">api-yycrbt.war</option>
-      <option value="wap-alipay.war">wap-alipay.war</option>
+    <select name="packname" form="confile">
+      <% $packnames.each do |e| %>
+        <option value="<%= e %>"><%= e %></option>
+      <% end %>
     </select>
+
+    <input name="commit" type="submit" value="view"/>
+    <input name="commit" type="submit" value="modify"/>
+  </p>
+
+  </form>
+
+  </li>
+
+
+
+
+  <li> 
+  <form action="deploy" method="post" enctype='multipart/form-data'>
+
+    <p>
+    <strong> 发布： </strong>
+
     <br>
-    <form action="deploy" method="post" id="sync">
-      <input name="commit" type="submit" value="sync"/>
-    </form>
+
+    <input type="file" name="myfile"/>
     </p>
-    </li>
-  </ol>
+
+    <p>
+    Click button to deploy:
+    <br>
+    <input name="commit" type="submit" value="v5backup"/>
+    </p>
+
+  </form>
+
+
+  </li>
+
+
+</ul>
+
+
+
+<br>
+
+
+
+<h3> 正式服务器 (sync to online server) </h3>
+<ol>
+  <li>
+  如果需要，请增加配置文件：
+  预留位置，此功能暂未完成。。。。。
+  </li>
+  <li>
+  <p>
+  Select && click button:
+  <br>
+  <select name="packname" form="sync">
+    <% $packnames.each do |e| %>
+      <option value="<%= e %>"><%= e %></option>
+    <% end %>
+  </select>
+  <br>
+  <form action="deploy" method="post" id="sync">
+    <input name="commit" type="submit" value="sync"/>
+  </form>
+  </p>
+  </li>
+</ol>
 
 

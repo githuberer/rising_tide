@@ -4,10 +4,11 @@ require_relative 'base'
 
 module Deploy
   class Deploy < Base
-    def initialize(packname, content, action, confile_content=nil)
+    #def initialize(packname, content, action, confile_content=nil)
+    def initialize(packname, content, action)
       @packname, @content, @action = packname, content, action
       @packname_dotfront = packname.sub(/\.\w+$/, '')
-      @confile_content = confile_content
+      #@confile_content = confile_content
     end
 
     protected
@@ -15,6 +16,7 @@ module Deploy
       upload_web(@packname, @content)
     end
 
+=begin
     def confile_modify(hostname, content)
       content_add = {}
       content.split("\n").each do |e|
@@ -39,6 +41,7 @@ module Deploy
         confile.each { |k,v| f.write("#{k}=#{v}\n") }
       end
     end
+=end
 
 
     def confile_append(hostname)
@@ -69,7 +72,7 @@ module Deploy
     def deploy
       upload
       if @action == (hostname = "v5backup")
-        confile_modify(hostname, @confile_content) if @confile_content
+        #confile_modify(hostname, @confile_content) if @confile_content
         confile_append(hostname)
         upload_scp("/temp/#{@packname}", hostname)
         update_package(hostname)

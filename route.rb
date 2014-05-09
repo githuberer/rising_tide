@@ -64,21 +64,14 @@ get '/deploy' do
   erb :deploy_get
 end
 
-post '/deploy_view_confile' do
-  confile_uri = "upload/v5backup-config.properties/#{params['packname'].sub(/\.\w+$/, '')}"
-  params['result'] = File.readlines(confile_uri)
-  erb :deploy_view_confile, :layout => false
-end
-
 post '/deploy' do
   if params['myfile']
     content = params['myfile'][:tempfile]
     packname = params['myfile'][:filename]
     action = params['commit']
-    confile_content = params['confile_content'] if params['confile_content']
 
     if $packnames.include?(packname)
-      mdeploy = Helpers::Deploy.new(packname, content, action, confile_content ||= nil)
+      mdeploy = Helpers::Deploy.new(packname, content, action)
       params['result'] = mdeploy.deploy
       #params.inspect 
       erb :deploy_post
@@ -89,6 +82,25 @@ post '/deploy' do
   else
     redirect 'deploy'
   end
+end
+
+get '/deploy/confile' do
+  confile_uri = "upload/v5backup-config.properties/#{params['packname'].sub(/\.\w+$/, '')}"
+  params['content'] = File.readlines(confile_uri)
+  case params['commit']
+  when "view"
+    erb :deploy_confile_view, :layout => false
+  when "modify"
+    erb :deploy_confile_modify, :layout => false
+  else
+    redirect '/deploy'
+  end
+end
+
+post '/deploy/confile/modify/:packname' do
+  confile_uri = "upload/v5backup-config.properties/#{params['packname'].sub(/\.\w+$/, '')}"
+  File.open(confile_uri, 'w') { |f| f.write(params['content']) }
+  redirect "/deploy/confile?packname=#{params['packname']}&commit=view"
 end
 
 
@@ -165,5 +177,6 @@ end
 get '/monitor' do
   erb :notyet
 end
+
 
 

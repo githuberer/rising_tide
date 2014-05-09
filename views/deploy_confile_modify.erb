@@ -1,0 +1,25 @@
+<h2> config.properties -- <%= params['packname'] %> </h2>
+<hr>
+<br>
+
+<p>
+<form action="/deploy/confile/modify/<%= params['packname'] %>" method="post" enctype='multipart/form-data'>
+
+  <textarea rows="35" cols="150" name="content">
+<% params['content'].each do |e| %>
+<%=e%>
+<% end %>
+  </textarea>
+
+  <br>
+  <input name="commit" type="submit" value="修改配置文件"/>
+  <br>
+
+  注意：配置文件将在下次发布时生效。
+
+</form>
+
+</p>
+
+
+
