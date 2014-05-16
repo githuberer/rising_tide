@@ -27,7 +27,8 @@ case $param in
             }
             echo -e "pid: $(<$pid) \n"
         else
-            echo -e "\n Rising_tide is already running, pid: $(<$pid) \n"
+            echo -e "\n Rising_tide is already running, pid: $(<$pid). 
+            Unless pleaase remove \"$home_app/pid\" file, and start it again. \n"
             exit
         fi
         ;;
