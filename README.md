@@ -5,15 +5,17 @@ Please run command in the application root directory unless otherwise specified.
 
 System environment initialize
 -----------
-For Ubuntu/Debian user
+For Ubuntu/Debian user:
 ``` shell
 aptitude -y install dirname realpath
 aptitude -y install imagemagick libmagickwand-dev
+aptitude -y install libmysqld-dev mysql-client
 ```
-For CentOS/Redhat user
+For CentOS/Redhat user:
 ``` shell
 yum -y install dirname realpath
 yum -y install ImageMagick-devel
+yum -y install mysql-devel mysql-client
 ```
 
 
