@@ -161,7 +161,7 @@ get '/backtrace' do
 end
 
 get "/backtrace/rearrange" do
-  Rearrange.upload_to_download
+  Rearrange.upload_to_download(Time.now)
   redirect '/backtrace'
 end
 
@@ -177,6 +177,5 @@ end
 get '/monitor' do
   erb :notyet
 end
-
 
 

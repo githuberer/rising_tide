@@ -1,65 +1,82 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <title>Rising-tide Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> Rising-tide Manager </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Rising-tide Manager">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
   </head>
+
+
   <body>
 
-    <div id="header" class="center">
-      <!--
-      <a href="http://10.0.0.249/cgi-bin/index.html" target="_blank">
-        点此回到旧版。 ！注意：原则上，旧版不再维护！
-      </a> </p>
-      -->
-
-      <h1> Rising-tide Manager </h1>
-      <div class="nav">
-        <a href="/"> Home </a> 
-        <a href="/about"> About </a>
+    <header class="site-header">
+    <div class="wrap">
+      <a class="site-title" href="/"><h1>Rising-tide Manager</h1></a>
+      <nav class="site-nav">
+      <div class="trigger">
+        <a href="/" class="page-link"> Home </a>
+        <a href="/about" class="page-link"> About </a>
+        <a href="mailto:wangyanying1@gmail.com" class="page-link" target="_blank"> Email </a>
+        <a href="http://www.github.com/wyying/risting-tide" class="page-link" target="_blank"> Github-repo </a>
       </div>
+      </nav>
     </div>
+    </header>
 
 
-    <p></p>
+<div class="page-content">
+  <div class="wrap">
 
-
-    <div id="page" class="center">
-
-      <div id="content-wrapper">
+      <div class="main-content">
         <%= yield %>
       </div>
 
-      <div id="sidebar">
-          <h2>麦唱</h2>
+      <div class="sidebar">
+          <h1>麦唱</h1>
         <ul>
-          <li><a href="redis" > 刷新Redis缓存 </a></p> </li>
-          <li><a href="subfile" > 替换服务器文件 </a></p> </li>
-        <li><a href="deploy" > Deploy package: ".+\.(war|zip)"</a></p> </li>
-        <li><a href="debug" >Debug:chklog:tomcat</a> </p></li>
-        <li><a href="sync_mc_om" > 同步麦唱伴奏至正式服务器 </a></p> </li>
+          <li><a href="redis"> 刷新Redis缓存 </a></li>
+          <li><a href="subfile"> 替换服务器文件 </a></li>
+          <li><a href="deploy"> Deploy package: ".+\.(war|zip)"</a></li>
+          <li><a href="debug">Debug:chklog:tomcat</a></li>
+          <li><a href="sync_mc_om"> 同步麦唱伴奏至正式服务器 </a></li>
         </ul>
-
-          <h2>音乐</h2>
+          <h1>音乐</h1>
         <ul>
-        <li><a href="v5music" > 音乐渠道发布 </a> </p></li>
+          <li><a href="v5music"> 音乐渠道发布 </a></li>
         </ul>
-
-          <h2>其它</h2>
+          <h1>其它</h1>
         <ul>
-
-          <li><a href="backtrace" >回溯文件</a></p></li>
-
-          <li><a href="monitor" >服务器监控</a></p></li>
+          <li><a href="backtrace">回溯文件</a></li>
+          <li><a href="monitor">服务器监控</a></li>
         </ul>
 
       </div>
 
-    </div>
-
-
   </div>
-</body>
+</div>
 
+
+<footer class="site-footer">
+<div class="wrap">
+  <div class="footer-col-1 column">
+    <p> -- </p>
+  </div>
+
+  <div class="footer-col-2 column">
+    <p>Rising-tide Manager</p>
+  </div>
+
+  <div class="footer-col-3 column">
+    <p> -- </p>
+  </div>
+
+</div>
+</footer>
+
+</body>
 </html>

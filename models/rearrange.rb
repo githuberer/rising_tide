@@ -3,8 +3,8 @@ require 'fileutils'
 require_relative 'base'
 
 module Rearrange
-  @t = Time.now
-  def self.upload_to_download
+  def self.upload_to_download(time)
+  @t = time
     sourcefiles = Dir.glob("upload/*").select { |e| File.file?(e) }
     targetdir = "download/#{@t.strftime("%Y-%m-%d")}"
 
