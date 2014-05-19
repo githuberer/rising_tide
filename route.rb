@@ -25,7 +25,10 @@ main = Helpers::Main.new
 ##### Routes #####################
 
 get '/' do
-  haml :index
+  redirect '/note'
+end
+get '/note' do
+  haml :note
 end
 
 get '/about' do
