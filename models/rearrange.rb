@@ -10,8 +10,8 @@ module Rearrange
 
     unless sourcefiles.empty?
       FileUtils.mkdir_p(targetdir) unless Dir.exist?(targetdir)
+      FileUtils.mv(sourcefiles, targetdir)
     end
-    FileUtils.mv(sourcefiles, targetdir)
   end
   def self.clear_download
     t = Time.now.strftime("%Y%m%d")
