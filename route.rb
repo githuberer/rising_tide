@@ -161,7 +161,7 @@ get '/backtrace' do
 end
 
 get "/backtrace/rearrange" do
-  Rearrange.upload_to_download(Time.now)
+  Rearrange.upload_to_download
   redirect '/backtrace'
 end
 
