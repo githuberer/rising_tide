@@ -89,7 +89,7 @@ end
 
 get '/deploy/confile' do
   confile_uri = "upload/v5backup-config.properties/#{params['packname'].sub(/\.\w+$/, '')}"
-  params['content'] = File.readlines(confile_uri)
+  params['content'] = File.read(confile_uri)
   case params['commit']
   when "view"
     haml :deploy_confile_view, :layout => false

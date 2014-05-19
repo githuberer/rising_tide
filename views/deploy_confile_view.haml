@@ -1,6 +1,5 @@
 %h1
   config.properties -- #{params['packname']}
 %br/
-- params['content'].each do |e|
-  = e
-  %br/
+
+%p!= params['content'].gsub(/\n/, "<br>")
