@@ -14,6 +14,7 @@ set :port, $app_port
 set :bind, '0.0.0.0'
 set :lock, true
 set :sessions, true                     
+set :server, :puma
 #set environment, :production
 #set :show_exceptions, false
 #set :root, File.dirname(__FILE__)          # set application’s root directory to current file's dir
