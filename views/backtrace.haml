@@ -1,0 +1,8 @@
+%h1 回溯操作过的文件
+%a{:href => "/backtrace/rearrange"} 没找到最新操作过的文件？点我马上更新列表！
+- params['fileuris'].each do |date, uris|
+  %h2= date
+  - uris.each do |u|
+    %a{:href => "/backtrace/#{u}"}
+      = u.sub(/download\//, "")
+    %br/

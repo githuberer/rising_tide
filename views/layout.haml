@@ -1,0 +1,57 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %title Rising-tide Manager
+    %meta{:content => "width=device-width", :name => "viewport"}/
+    %meta{:content => "Rising-tide Manager", :name => "description"}/
+    / Custom CSS
+    %link{:href => "css/main.css", :rel => "stylesheet"}/
+    %link{:href => "http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin", :rel => "stylesheet", :type => "text/css"}/
+  %body
+    %header.site-header
+      .wrap
+        %a.site-title{:href => "/"}/
+        %h1 Rising-tide Manager
+        %nav.site-nav
+          .trigger
+            %a.page-link{:href => "/"} Home
+            %a.page-link{:href => "/about"} About
+            %a.page-link{:href => "http://www.github.com/wyying/rising_tide", :target => "_blank"} Github-repo
+    .page-content
+      .wrap
+        .main-content
+          = yield
+        .sidebar
+          %h1 麦唱
+          %ul
+            %li
+              %a{:href => "redis"} 刷新Redis缓存
+            %li
+              %a{:href => "subfile"} 替换服务器文件
+            %li
+              %a{:href => "deploy"} Deploy package: ".+\.(war|zip)"
+            %li
+              %a{:href => "debug"} Debug:chklog:tomcat
+            %li
+              %a{:href => "sync_mc_om"} 同步麦唱伴奏至正式服务器
+          %h1 音乐
+          %ul
+            %li
+              %a{:href => "v5music"} 音乐渠道发布
+          %h1 其它
+          %ul
+            %li
+              %a{:href => "backtrace"} 回溯文件
+            %li
+              %a{:href => "monitor"} 服务器监控
+    %footer.site-footer
+      .wrap
+        .footer-col-1.column
+          %p --
+        .footer-col-2.column
+          %p Rising-tide Manager
+        .footer-col-3.column
+          %p --

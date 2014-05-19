@@ -1,0 +1,29 @@
+%h1 替换文件
+%h2 上传替换服务器上的文件
+%form{:action => "subfile", :enctype => "multipart/form-data", :method => "post"}
+  %ol
+    %li
+      选择本地要上传的文件，文件名任意。
+      %br/
+      %input{:name => "myfile", :type => "file"}/
+    %li
+      键入服务器上需要被替换的文件的路径，包括文件名。
+      %br/
+      例如： /u/www/mchang/faq.html
+      %br/
+      %textarea{:cols => "50", :name => "path", :rows => "1"}
+    %li
+      选择一台或者多台需要被替换文件的服务器。
+      %br/
+      %input#v5backup{:name => "hostname[]", :type => "checkbox", :value => "v5backup"}/
+      %label{:for => "v5backup"} v5backup
+      %input#v5file{:name => "hostname[]", :type => "checkbox", :value => "v5file"}/
+      %label{:for => "v5file"} v5file
+      %input#v5app{:name => "hostname[]", :type => "checkbox", :value => "v5app"}/
+      %label{:for => "v5app"} v5app
+      %input#v5app2{:name => "hostname[]", :type => "checkbox", :value => "v5app2"}/
+      %label{:for => "v5app2"} v5app2
+    %li
+      点击“subfile”按钮执行最终替换操作。
+      %br/
+      %input{:name => "commit", :type => "submit", :value => "subfile"}/

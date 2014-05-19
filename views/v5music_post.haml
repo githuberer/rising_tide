@@ -1,0 +1,9 @@
+%h1 Results
+%ul
+  - if params[:result].empty?
+    %li
+      %b OK
+  - else
+    %li
+      %b
+        = params[:result]

@@ -1,0 +1,26 @@
+%h1 Subfile Results
+%ul
+  - upload_web_result = params[:result].shift
+  - (0...params[:hostname].length).each do |e|
+    %li
+      hostname : #{params[:hostname][e]}
+    %li
+      upload_web_result : #{upload_web_result}
+    - result0 = params[:result][e][0]
+    - result1 = params[:result][e][1]
+    - result2 = params[:result][e][2]
+    - if result0 == nil and result1 == nil and result2 == nil
+      %li
+        %b result : ok
+    - else
+      %li
+        %b
+          \!!! error message0: #{result0}
+      %li
+        %b
+          \!!! error message1: #{result1}
+      %li
+        %b
+          \!!! error message2: #{result2}
+  /
+    </haml:block><haml:silent></haml:silent><haml:block> <li> <b> !!! upload_web error: <haml:loud> upload_web_result </haml:loud> </b> </li>

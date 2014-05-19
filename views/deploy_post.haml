@@ -1,0 +1,9 @@
+%h1 Deploy Package Results
+%ul
+  %li
+    hostname : #{params[:commit]}
+  %li
+    packname : #{params['myfile'][:filename]}
+  %li
+    %b
+      result : #{params[:result]}

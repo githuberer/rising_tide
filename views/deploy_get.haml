@@ -1,0 +1,39 @@
+%h1 麦唱服务器发布相关
+%h2 备份服务器 (v5backup server)
+%ul
+  %li
+    %form#confile{:action => "deploy/confile", :target => "_blank"}
+      %p
+        %strong 配置文件：
+        %br/
+        %select{:form => "confile", :name => "packname"}
+          - $packnames.each do |e|
+            %option{:value => e}= e
+        %input{:name => "commit", :type => "submit", :value => "view"}/
+        %input{:name => "commit", :type => "submit", :value => "modify"}/
+  %li
+    %form{:action => "deploy", :enctype => "multipart/form-data", :method => "post"}
+      %p
+        %strong 发布：
+        %br/
+        %input{:name => "myfile", :type => "file"}/
+      %p
+        Click button to deploy:
+        %br/
+        %input{:name => "commit", :type => "submit", :value => "v5backup"}/
+%br/
+%h2 正式服务器 (sync to online server)
+%ol
+  %li
+    如果需要，请增加配置文件：
+    预留位置，此功能暂未完成。。。。。
+  %li
+    %p
+      Select && click button:
+      %br/
+      %select{:form => "sync", :name => "packname"}
+        - $packnames.each do |e|
+          %option{:value => e}= e
+      %br/
+    %form#sync{:action => "deploy", :method => "post"}
+      %input{:name => "commit", :type => "submit", :value => "sync"}/

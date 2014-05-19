@@ -1,0 +1,17 @@
+%h1 音乐渠道发布
+%ul
+  %li 若需要，请上传zip包。
+  %li 然后选择一个类型，键入id号，点击按钮开始发布。
+  %li 注意： 每两个id号之间需要用至少一个“空格” “回车”或者“tab”键分割开。
+  %li 注意： id必须为8位数字。
+%p
+  %form#v5music{:action => "v5music", :enctype => "multipart/form-data", :method => "post"}
+    %input{:name => "myfile", :type => "file"}/
+    %br/
+    %select{:form => "v5music", :name => "type"}
+      - $types.each do |e|
+        %option{:value => e}
+          = e
+    %textarea{:cols => "50", :name => "ids", :rows => "15"}
+    %br/
+    %input{:name => "commit", :type => "submit"}/

@@ -1,0 +1,8 @@
+%h1 Flush Redis cache Results
+%ul
+  - (0...params[:hostname].length).each do |e|
+    %li
+      hostname : #{params[:hostname][e]}
+    %li
+      %b
+        result : #{params[:result][e]}

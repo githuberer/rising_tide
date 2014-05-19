@@ -25,28 +25,28 @@ main = Helpers::Main.new
 ##### Routes #####################
 
 get '/' do
-  erb :index
+  haml :index
 end
 
 get '/about' do
-  erb :about
+  haml :about
 end
 
 
 get '/redis' do
-  erb :redis_flush_get
+  haml :redis_flush_get
 end
 
 post '/redis' do
   params['result'] = main.redis_flush(params['hostname'])
-  erb :redis_flush_post
+  haml :redis_flush_post
   #params.inspect
   #params['result'].inspect
 end
 
 
 get '/subfile' do
-  erb :subfile_get
+  haml :subfile_get
 end
 
 post '/subfile' do
@@ -55,13 +55,13 @@ post '/subfile' do
     params['myfile'][:tempfile],            # content
     params['hostname']                      # hostname
   )
-  erb :subfile_post
+  haml :subfile_post
   #params.inspect
 end
 
 
 get '/deploy' do
-  erb :deploy_get
+  haml :deploy_get
 end
 
 post '/deploy' do
@@ -74,7 +74,7 @@ post '/deploy' do
       mdeploy = Helpers::Deploy.new(packname, content, action)
       params['result'] = mdeploy.deploy
       #params.inspect 
-      erb :deploy_post
+      haml :deploy_post
     else
       redirect 'deploy'
     end
@@ -89,9 +89,9 @@ get '/deploy/confile' do
   params['content'] = File.readlines(confile_uri)
   case params['commit']
   when "view"
-    erb :deploy_confile_view, :layout => false
+    haml :deploy_confile_view, :layout => false
   when "modify"
-    erb :deploy_confile_modify, :layout => false
+    haml :deploy_confile_modify, :layout => false
   else
     redirect '/deploy'
   end
@@ -105,7 +105,7 @@ end
 
 
 get '/sync_mc_om' do
-  erb :sync_mc_om_get
+  haml :sync_mc_om_get
 end
 
 post '/sync_mc_om' do
@@ -116,7 +116,7 @@ post '/sync_mc_om' do
     params['result'] = []
     params['result'] << msync_mc_om.sync_records
     params['result'] << msync_mc_om.sync_files
-    erb :sync_mc_om_post
+    haml :sync_mc_om_post
     #msync_mc_om.test
     #params['result'].inspect
   else
@@ -126,7 +126,7 @@ end
 
 
 get '/v5music' do
-  erb :v5music_get
+  haml :v5music_get
 end
 
 post '/v5music' do
@@ -144,7 +144,7 @@ post '/v5music' do
     end
 
     params['result'] = mv5music.deploy
-    erb :v5music_post
+    haml :v5music_post
   else 
     redirect '/v5music'
   end
@@ -157,7 +157,7 @@ get '/backtrace' do
   dirs.each do |e| 
     params['fileuris'].store(e.sub(/download\//, ""), Dir.glob("#{e}/**"))
   end
-  erb :backtrace
+  haml :backtrace
 end
 
 get "/backtrace/rearrange" do
@@ -171,11 +171,11 @@ end
 
 
 get '/debug' do
-  erb :notyet
+  haml :notyet
 end
 
 get '/monitor' do
-  erb :notyet
+  haml :notyet
 end
 
 

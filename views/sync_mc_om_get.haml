@@ -1,0 +1,15 @@
+%h1 同步麦唱伴奏至正式服务器
+%p 键入id号，然后点击“sync”按钮开始同步。
+%i
+  %p
+    注意：
+    %ul
+      %li
+        每两个id号之间需要用至少一个“空格” “回车”或者“tab”键分割开。
+      %li
+        id需为数字。
+%form{:action => "sync_mc_om", :method => "post"}
+  %p
+    %textarea{:cols => "50", :name => "ids", :rows => "20"}
+  %p
+    %input{:name => "commit", :type => "submit", :value => "sync"}/

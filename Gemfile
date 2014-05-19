@@ -11,8 +11,8 @@
 #source :rubygems
 source 'https://rubygems.org'
 
-#gem 'haml'
-#gem 'erubis' 
+gem 'haml'
+gem 'html2haml'
 gem 'rack'
 gem 'sinatra'
 gem 'sinatra-contrib'
@@ -25,8 +25,3 @@ gem 'whenever', :require => false
 gem 'rake'
 gem 'minitest'
 gem 'fileutils'
-
-
-
-
-
