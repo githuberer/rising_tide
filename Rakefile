@@ -12,7 +12,7 @@ task :check_server_health do
   servers.check_net_traffic
 end
 
-task :rearrange_upload_to_downlaod do
+task :rearrange_upload_to_download do
   Rearrange.upload_to_download
 end
 
