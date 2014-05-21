@@ -74,7 +74,6 @@ post '/deploy' do
     if $packnames.include?(packname)
       mdeploy = Helpers::Deploy.new(packname, content, action)
       params['result'] = mdeploy.deploy
-      #params.inspect 
       haml :deploy_post
     else
       redirect 'deploy'

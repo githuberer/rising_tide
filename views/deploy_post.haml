@@ -5,6 +5,8 @@
   %li
     packname : #{params['myfile'][:filename]}
   %li
-    result : 
-    %br/
-    %b!= params[:result].sub("\n", "<br>")
+    - regex = Regexp.new("Starting.*OK", Regexp::MULTILINE)
+    - unless params[:result].scan(regex).empty?
+      %b result : OK
+    - else
+      - raise params[:result].inspect
