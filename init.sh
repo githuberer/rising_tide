@@ -58,7 +58,7 @@ case $param in
         ;;
     restart)
         $__FILE__ stop
-        sleep 1
+        sleep 3
         $__FILE__ start
         ;;
     *)
