@@ -18,8 +18,7 @@ enable :lock
 enable :sessions
 
 
-helpers { include Helpers }
-main = Helpers::Main.new
+helpers Helpers
 ##### Routes #####################
 
 get '/' do
@@ -39,7 +38,7 @@ get '/redis' do
 end
 
 post '/redis' do
-  params['result'] = main.redis_flush(params['hostname'])
+  params['result'] = Main.redis_flush(params['hostname'])
   haml :redis_flush_post
   #params.inspect
   #params['result'].inspect
@@ -51,7 +50,7 @@ get '/subfile' do
 end
 
 post '/subfile' do
-  params['result'] = main.subfile(
+  params['result'] = Main.subfile(
     params['path'].strip,                   # path(remote server)
     params['myfile'][:tempfile],            # content
     params['hostname']                      # hostname
@@ -178,4 +177,6 @@ get '/monitor' do
   haml :notyet
 end
 
-
+get '/test' do
+  Main.public_methods.inspect
+end
