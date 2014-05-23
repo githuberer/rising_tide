@@ -37,7 +37,7 @@ case $param in
             fi
         else
             echo -e "\e[31m App already running, pid: $(<$pid). 
-            Unless remove \"$apphome/pid\" file and start it again, please. \e[0m \n"
+            Unless remove \"$pid\" file and start it again, please. \e[0m \n"
             exit
         fi
         ;;
