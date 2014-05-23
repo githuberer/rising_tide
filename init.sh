@@ -26,7 +26,7 @@ case $param in
         if [[ ! -f $pid ]]
         then
             cd $apphome && (nohup rackup -o $host -p $port -P $pid &> $logfile &)
-            sleep 2
+            sleep 1
 
             if [[ -f $pid ]]; then
                 echo -e "[ \e[32mOK\e[0m ] \n"
