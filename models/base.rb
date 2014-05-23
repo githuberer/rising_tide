@@ -7,9 +7,7 @@ require 'cgi'
 require_relative '../config/main'
 
 
-class Base
-
-  protected
+module Base
   def escape_html(text)
     CGI.escapeHTML(text).sub("\n", "<br>")
   end

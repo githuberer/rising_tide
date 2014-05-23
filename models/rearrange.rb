@@ -3,7 +3,8 @@ require 'fileutils'
 require_relative 'base'
 
 module Rearrange
-  def self.upload_to_download
+  extend self
+  def upload_to_download
     t = Time.now
     sourcefiles = Dir.glob("upload/*").select { |e| File.file?(e) }
     targetdir = "download/#{t.strftime("%Y-%m-%d")}"
@@ -13,7 +14,7 @@ module Rearrange
       FileUtils.mv(sourcefiles, targetdir)
     end
   end
-  def self.clear_download
+  def clear_download
     t = Time.now.strftime("%Y%m%d")
     dirs = Dir.glob("download/????-??-??").select do |d|
       d.gsub(/(download\/|-)/, '').to_i < t.to_i-100
