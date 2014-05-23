@@ -6,7 +6,9 @@ upload
 download
 downloads
 log
+logs
 pid
+rack.pid
 
 
 # vim #

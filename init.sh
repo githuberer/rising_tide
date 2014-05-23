@@ -5,57 +5,61 @@
 HOME=/root
 
 param=$1
-home_app=$(dirname $(realpath $0))
-log=$home_app/log/app.log
-pid=$home_app/pid
+
+__FILE__=$(realpath $0)
+
+apphome=$(dirname $__FILE__)
+
+logfile=$apphome/logs/app.log
+pid=$apphome/rack.pid
+
+host="0.0.0.0"
+port="4567"
 
 
-test -d $home_app/log || mkdir $home_app/log
-test -d $home_app/upload || mkdir $home_app/upload
-test -f $log || touch $log
-test -f $pid || touch $pid
+test -d $(dirname $logfile) || mkdir $(dirname $logfile)
+test -d $apphome/upload || mkdir $apphome/upload
 
 case $param in
     start)
-        if [[ -z $(<$pid) ]]
+        echo -en "\nStart Rising-tide ... "
+        if [[ ! -f $pid ]]
         then
-            echo -en "\n Start Rising_tide ... "
-            cd $home_app && \
-            { 
-                nohup /usr/bin/env ruby ./route.rb &> $log &
-                echo $! > $pid
-            }
-            echo -e "pid: $(<$pid) \n"
+            cd $apphome && (nohup rackup -o $host -p $port -P $pid &> $logfile &)
+            sleep 2
+
+            if [[ -f $pid ]]; then
+                echo -e "[ \e[32mOK\e[0m ] \n"
+                #echo -e "[ \e[32mOK\e[0m ]  pid: $(<$pid) \n"
+            else
+                echo -e "\e[31m Start app invoked error, trace log showed below:\e[0m \n"
+                cat $apphome/logs/app.log
+            fi
         else
-            echo -e "\n Rising_tide is already running, pid: $(<$pid). 
-            Unless pleaase remove \"$home_app/pid\" file, and start it again. \n"
+            echo -e "\e[31m App already running, pid: $(<$pid). 
+            Unless remove \"$apphome/pid\" file and start it again, please. \e[0m \n"
             exit
         fi
         ;;
     stop)
-        if [[ -z $(<$pid) ]]
-        then
-            echo -e "\n Rising_tide not running, at least pid file is empty. \n"
-            exit
+        echo -en "\nStop Rising-tide ... "
+        if [[ -f $pid ]]; then
+            kill -9 $(<$pid) && echo -e "[ \e[32mOK\e[0m ] \n"
+            rm $pid
         else
-            echo -en "\n Stop Rising_tide ... "
-            {
-                kill -9 $(<$pid)
-                : > $pid
-            }
-            echo -e "[ OK ] \n"
+            echo -e "\e[31mApp not running, at least pid file empty.\e[0m \n"
+            exit
         fi
-        #kill -9 $(ps -ef |grep route.rb |grep -v "vim" |grep -v "grep" |awk '{print $2}' |paste -s -d " ")
         ;;
     status)
         echo ""
-        ps -ef |grep route.rb|grep -v "grep" |grep -v "vim"
+        ps -ef |grep $apphome |grep -v "grep" |grep -v "vim"
         echo ""
         ;;
     restart)
-        $home_app/init.sh stop
+        $__FILE__ stop
         sleep 1
-        $home_app/init.sh start
+        $__FILE__ start
         ;;
     *)
         echo -e "\n PARAMS: start | stop | status \n"

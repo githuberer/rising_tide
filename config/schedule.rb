@@ -26,7 +26,7 @@
 # Update crontab on linux, exec command below:
 # whenever -i
 ############################################
-set :output, "log/whenever.log"
+set :output, "logs/whenever.log"
 
 
 every :day, :at => '1am' do

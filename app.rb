@@ -1,0 +1,183 @@
+#!/usr/bin/env ruby
+require 'sinatra/base'
+#require 'sinatra/reloader' if development?
+
+
+Dir["models/*.rb"].each { |e| require_relative e }
+
+module Models
+  include Main
+  include Rearrange
+  Deploy = ::Deploy
+  SyncMcOm = ::SyncMcOm
+  CheckServerHealth = ::CheckServerHealth
+  V5music = ::V5music
+end
+
+
+class App < Sinatra::Base
+  include Models
+  #set :bind, '0.0.0.0'
+  #set :port, $app_port
+  set environment, :development #:production
+  set :server, :puma
+  enable :lock
+  enable :sessions
+
+
+  use Rack::Auth::Basic, 'RisingTide-Manager' do |username, password|
+    username == $rtm_user and password == $rtm_password
+  end
+
+
+  get '/' do
+    redirect '/note'
+  end
+  get '/note' do
+    haml :note
+  end
+  get '/about' do
+    haml :about
+  end
+
+
+  get '/redis' do
+    haml :redis_flush_get
+  end
+  post '/redis' do
+    params['result'] = Main.redis_flush(params['hostname'])
+    haml :redis_flush_post
+    #params.inspect
+    #params['result'].inspect
+  end
+
+
+  get '/subfile' do
+    haml :subfile_get
+  end
+  post '/subfile' do
+    params['result'] = Main.subfile(
+      params['path'].strip,                   # path(remote server)
+      params['myfile'][:tempfile],            # content
+      params['hostname']                      # hostname
+    )
+    haml :subfile_post
+    #params.inspect
+  end
+
+
+  get '/deploy' do
+    haml :deploy_get
+  end
+  post '/deploy' do
+    if params['myfile']
+      content = params['myfile'][:tempfile]
+      packname = params['myfile'][:filename]
+      action = params['commit']
+
+      if $packnames.include?(packname)
+        mdeploy = Models::Deploy.new(packname, content, action)
+        params['result'] = mdeploy.deploy
+        haml :deploy_post
+      else
+        redirect 'deploy'
+      end
+
+    else
+      redirect 'deploy'
+    end
+  end
+
+
+  get '/deploy/confile' do
+    confile_uri = "upload/v5backup-config.properties/#{params['packname'].sub(/\.\w+$/, '')}"
+    params['content'] = File.read(confile_uri)
+    case params['commit']
+    when "view"
+      haml :deploy_confile_view, :layout => false
+    when "modify"
+      haml :deploy_confile_modify, :layout => false
+    else
+      redirect '/deploy'
+    end
+  end
+  post '/deploy/confile/modify/:packname' do
+    confile_uri = "upload/v5backup-config.properties/#{params['packname'].sub(/\.\w+$/, '')}"
+    File.open(confile_uri, 'w') { |f| f.write(params['content']) }
+    redirect "/deploy/confile?packname=#{params['packname']}&commit=view"
+  end
+
+
+  get '/sync_mc_om' do
+    haml :sync_mc_om_get
+  end
+  post '/sync_mc_om' do
+    ids = params['ids'].split("\s").select { |e| e =~ /^\d+$/ }  # ids is an Array
+
+    unless ids.empty?
+      msync_mc_om = Models::SyncMcOm.new(ids)
+      params['result'] = []
+      params['result'] << msync_mc_om.sync_records
+      params['result'] << msync_mc_om.sync_files
+      haml :sync_mc_om_post
+      #msync_mc_om.test
+      #params['result'].inspect
+    else
+      redirect 'sync_mc_om'
+    end
+  end
+
+
+  get '/v5music' do
+    haml :v5music_get
+  end
+  post '/v5music' do
+    type = params['type']
+    ids = params['ids'].split("\s").select { |e| e =~ /^\d{8}$/ }  # ids is an Array
+
+    unless ids.empty?
+      mv5music = Models::V5music.new(type, ids)
+
+      if params.keys.include?('myfile')
+        content = params['myfile'][:tempfile]
+        #filename = params['myfile'][:filename]
+        filename = "v5music.zip"
+        mv5music.update_localfile(filename, content)
+      end
+
+      params['result'] = mv5music.deploy
+      haml :v5music_post
+    else 
+      redirect '/v5music'
+    end
+  end
+
+
+  get '/backtrace' do
+    dirs = Dir.glob("download/????-??-??").sort { |x, y| y <=> x }
+    params['fileuris'] = {}
+    dirs.each do |e| 
+      params['fileuris'].store(e.sub(/download\//, ""), Dir.glob("#{e}/**"))
+    end
+    haml :backtrace
+  end
+  get "/backtrace/rearrange" do
+    Rearrange.upload_to_download
+    redirect '/backtrace'
+  end
+  get '/backtrace/*' do |fileuri|
+    send_file "#{fileuri}"
+  end
+
+
+  get '/debug' do
+    haml :notyet
+  end
+  get '/monitor' do
+    haml :notyet
+  end
+  get '/test' do
+    "aaa"
+  end
+
+end
