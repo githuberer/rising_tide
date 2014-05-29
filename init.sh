@@ -33,7 +33,7 @@ case $param in
                 #echo -e "[ \e[32mOK\e[0m ]  pid: $(<$pid) \n"
             else
                 echo -e "\e[31m Start app invoked error, trace log showed below:\e[0m \n"
-                cat $apphome/logs/app.log
+                cat $logfile
             fi
         else
             echo -e "\e[31m App already running, pid: $(<$pid). 
