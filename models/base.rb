@@ -8,10 +8,6 @@ require_relative '../config/main'
 
 
 module Base
-  def escape_html(text)
-    CGI.escapeHTML(text).sub("\n", "<br>")
-  end
-
   def to_ip(hostname)
     $hosts[hostname]
   end

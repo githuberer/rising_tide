@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative 'helpers'
+require_relative 'models'
 
 # exec command: rake task_name
 # example: rake check_server_health

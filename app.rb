@@ -1,18 +1,7 @@
 #!/usr/bin/env ruby
 require 'sinatra/base'
+require_relative 'models'
 #require 'sinatra/reloader' if development?
-
-
-Dir["models/*.rb"].each { |e| require_relative e }
-
-module Models
-  include Main
-  include Rearrange
-  Deploy = ::Deploy
-  SyncMcOm = ::SyncMcOm
-  CheckServerHealth = ::CheckServerHealth
-  V5music = ::V5music
-end
 
 
 class App < Sinatra::Base
