@@ -6,3 +6,6 @@
   %li
     - if params[:result][0].nil? and params[:result][1].nil?
       %b result : OK
+    -else
+      - raise params[:result].inspect
+
