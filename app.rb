@@ -101,7 +101,10 @@ class App < Sinatra::Base
     haml :sync_mc_om_get
   end
   post '/sync_mc_om' do
-    params['ids'] = params['ids'].split("\s").select { |e| e =~ /^\d+$/ }  # ids is an Array
+    params['ids'] = params['ids'].split("\s").select { |e| e =~ /(^\d+$|^\d+\.\.\d+$)/ }  # params['ids'] is an Array
+    params['ids'].map! do |e|
+      ("do |e|
+    end
 
     unless params['ids'].empty?
       msync_mc_om = Models::SyncMcOm.new(params['ids'])
