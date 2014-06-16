@@ -102,9 +102,8 @@ class App < Sinatra::Base
   end
   post '/sync_mc_om' do
     params['ids'] = params['ids'].split("\s").select { |e| e =~ /(^\d+$|^\d+\.\.\d+$)/ }  # params['ids'] is an Array
-    params['ids'].map! do |e|
-      ("do |e|
-    end
+    params['ids'].map! { |e| e.to_rge }
+    params['ids'].etd_rge!
 
     unless params['ids'].empty?
       msync_mc_om = Models::SyncMcOm.new(params['ids'])

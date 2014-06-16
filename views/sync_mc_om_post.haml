@@ -4,6 +4,7 @@
     ids : #{params[:ids].join(", ")}
 
   %li
+    - params[:result].flatten!
     - if (params[:result][0].nil? or params[:result][0].empty?) and params[:result][1].nil?
       %b result : OK
     -else

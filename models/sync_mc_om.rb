@@ -123,12 +123,7 @@ class SyncMcOm
     result = []
     result << re1 if re1
     result << re2 if re2
-
-    if result.empty?
-      nil
-    else
-      result
-    end
+    result
   end
 
 

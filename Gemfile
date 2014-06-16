@@ -11,6 +11,7 @@
 #source :rubygems
 source 'https://rubygems.org'
 
+gem 'rmagick'
 gem 'haml'
 gem 'html2haml'
 gem 'rack'

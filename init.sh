@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
-. /etc/profile.d/rvm.sh
+set -e
 
-HOME=/root
+test -f /etc/profile.d/rvm.sh && . /etc/profile.d/rvm.sh
+test -f $HOME/.rvm/scripts/scripts/rvm && $HOME/.rvm/scripts/scripts/rvm
+
+#HOME=/root
 
 param=$1
 
-__FILE__=$(realpath $0)
+__FILE__=$(readlink -f $0)
 
 apphome=$(dirname $__FILE__)
 
@@ -17,8 +20,8 @@ host="0.0.0.0"
 port="4567"
 
 
-test -d $(dirname $logfile) || mkdir $(dirname $logfile)
-test -d $apphome/upload || mkdir $apphome/upload
+test -e $(dirname $logfile) || mkdir $(dirname $logfile)
+test -e $apphome/upload || mkdir $apphome/upload
 
 case $param in
     start)
