@@ -1,5 +1,6 @@
 %h1 麦唱服务器发布相关
 %h2 备份服务器 (v5backup server)
+
 %ul
   %li
     %form#confile{:action => "deploy/confile", :target => "_blank"}
@@ -16,6 +17,9 @@
       %p
         %strong 发布：
         %br/
+        - if session.include?('error')
+          .ms_error
+            %p= session['error'].to_html
         %input{:name => "myfile", :type => "file"}/
       %p
         Click button to deploy:
@@ -37,3 +41,4 @@
       %br/
     %form#sync{:action => "deploy", :method => "post"}
       %input{:name => "commit", :type => "submit", :value => "sync"}/
+- session.clear

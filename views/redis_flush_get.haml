@@ -2,6 +2,9 @@
 %h2 刷新redis缓存
 %p 选择一台或者多台服务器，然后点击"flush"按钮开始刷新缓存。
 %form{:action => "redis", :method => "post"}
+  - if session.include?('error')
+    .ms_error
+      %p= session['error'].to_html
   %input#v5backup{:name => "hostname[]", :type => "checkbox", :value => "v5backup"}/
   %label{:for => "v5backup"} redis - v5backup
   %br/
@@ -10,3 +13,4 @@
   %br/
   %p
     %input{:name => "commit", :type => "submit", :value => "flush"}/
+- session.clear

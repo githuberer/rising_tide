@@ -4,6 +4,12 @@
   %li 然后选择一个类型，键入id号，点击按钮开始发布。
   %li 注意： 每两个id号之间需要用至少一个“空格” “回车”或者“tab”键分割开。
   %li 注意： id必须为8位数字。
+%a{:href => "/backtrace/download/v5music.zip"} 不知道需上传的文件压缩包内容应为什么结构？点此下载示例压缩包。
+
+- if session.include?('error')
+  .ms_error
+    %p= session['error'].to_html
+
 %p
   %form#v5music{:action => "v5music", :enctype => "multipart/form-data", :method => "post"}
     %input{:name => "myfile", :type => "file"}/
@@ -12,6 +18,10 @@
       - $types.each do |e|
         %option{:value => e}
           = e
-    %textarea{:cols => "50", :name => "ids", :rows => "15"}
+    %textarea{:cols => "50", :name => "ids", :rows => "10"}
     %br/
     %input{:name => "commit", :type => "submit"}/
+
+- session.clear
+
+

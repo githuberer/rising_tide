@@ -1,6 +1,12 @@
 #!/usr/bin/env ruby
 
 class String
+  def to_html
+    self.gsub("\n", "<br>")
+  end
+  def to_html!
+    self.gsub!("\n", "<br>")
+  end
   def to_rge
     if self =~ /^.+\.{2}.+$/
       ran = self.split('..')

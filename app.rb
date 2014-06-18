@@ -12,6 +12,7 @@ class App < Sinatra::Base
   set :server, :puma
   enable :lock
   enable :sessions
+  set :sessions, 5
 
 
   use Rack::Auth::Basic, 'RisingTide-Manager' do |username, password|
@@ -34,24 +35,39 @@ class App < Sinatra::Base
     haml :redis_flush_get
   end
   post '/redis' do
+    params.inspect
+    unless params.include?('hostname')
+      session['error'] = "Please select at least one hostname."
+      redirect '/redis' 
+    end
     params['result'] = Main.redis_flush(params['hostname'])
     haml :redis_flush_post
-    #params.inspect
-    #params['result'].inspect
   end
-
 
   get '/subfile' do
     haml :subfile_get
   end
   post '/subfile' do
+    params['path'].strip!                   # path(remote server)
+    unless params.include?('myfile')
+      session['error1'] = "Please select and upload file."
+      redirect '/subfile' 
+    end
+    unless params['path'].size > 0
+      session['error2'] = "Please type in file path."
+      redirect '/subfile' 
+    end
+    unless params.include?("hostname")
+      session['error3'] = "Please select at least one hostname."
+      redirect '/subfile' 
+    end
+
     params['result'] = Main.subfile(
-      params['path'].strip,                   # path(remote server)
+      params['path'],                         # path(remote server)
       params['myfile'][:tempfile],            # content
       params['hostname']                      # hostname
     )
     haml :subfile_post
-    #params.inspect
   end
 
 
@@ -59,22 +75,23 @@ class App < Sinatra::Base
     haml :deploy_get
   end
   post '/deploy' do
-    if params['myfile']
-      content = params['myfile'][:tempfile]
-      packname = params['myfile'][:filename]
-      action = params['commit']
-
-      if $packnames.include?(packname)
-        mdeploy = Models::Deploy.new(packname, content, action)
-        params['result'] = mdeploy.deploy
-        haml :deploy_post
-      else
-        redirect 'deploy'
-      end
-
-    else
+    unless params.include?('myfile')
+      session['error'] = "Please select and upload file."
       redirect 'deploy'
     end
+
+    content = params['myfile'][:tempfile]
+    packname = params['myfile'][:filename]
+    action = params['commit']
+
+    unless $packnames.include?(packname)
+      session['error'] = "\"#{packname}\" not support to deploy. \n Valid packname: #{$packnames.join(', ')}"
+      redirect 'deploy'
+    end
+
+    mdeploy = Models::Deploy.new(packname, content, action)
+    params['result'] = mdeploy.deploy
+    haml :deploy_post
   end
 
 
@@ -105,17 +122,16 @@ class App < Sinatra::Base
     params['ids'].map! { |e| e.to_rge }
     params['ids'].etd_rge!
 
-    unless params['ids'].empty?
+    if params['ids'].empty?
+      session['error'] = "Type in at least one \"id\", or \"id\" format not valid."
+      redirect 'sync_mc_om'
+    end
+
       msync_mc_om = Models::SyncMcOm.new(params['ids'])
       params['result'] = []
       params['result'] << msync_mc_om.sync_records
       params['result'] << msync_mc_om.sync_files
       haml :sync_mc_om_post
-      #msync_mc_om.test
-      #params['result'].inspect
-    else
-      redirect 'sync_mc_om'
-    end
   end
 
 
@@ -124,25 +140,26 @@ class App < Sinatra::Base
   end
   post '/v5music' do
     type = params['type']
+
     ids = params['ids'].split("\s").select { |e| e =~ /^\d{8}$/ }  # ids is an Array
-
-    unless ids.empty?
-      mv5music = Models::V5music.new(type, ids)
-
-      if params.keys.include?('myfile')
-        content = params['myfile'][:tempfile]
-        #filename = params['myfile'][:filename]
-        filename = "v5music.zip"
-        mv5music.update_localfile(filename, content)
-      end
-
-      params['result'] = mv5music.deploy
-      haml :v5music_post
-    else 
-      redirect '/v5music'
+    if ids.empty?
+      session['error'] = "Type in at least one \"id\", or \"id\" format not valid."
+      redirect 'v5music'
     end
-  end
 
+    mv5music = Models::V5music.new(type, ids)
+    if params.include?('myfile') and params['myfile'] =~ /.*\.zip/
+      content = params['myfile'][:tempfile]
+      #filename = params['myfile'][:filename]
+      filename = "v5music.zip"
+      mv5music.update_localfile(filename, content)
+    else
+      session['error'] = "Upload file format must be \"zip\"."
+      redirect 'v5music'
+    end
+    params['result'] = mv5music.deploy
+    haml :v5music_post
+  end
 
   get '/backtrace' do
     dirs = Dir.glob("download/????-??-??").sort { |x, y| y <=> x }

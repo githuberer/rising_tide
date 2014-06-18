@@ -13,8 +13,14 @@
       %li
         例如，输入"110 120 119 1..5 7..8"表示同步id为"110 120 119 1 2 3 4 5 7 8"的歌曲。
 
+- if session.include?('error')
+  .ms_error
+    %p= session['error'].to_html
+
 %form{:action => "sync_mc_om", :method => "post"}
   %p
-    %textarea{:cols => "50", :name => "ids", :rows => "20"}
+    %textarea{:cols => "50", :name => "ids", :rows => "10"}
   %p
     %input{:name => "commit", :type => "submit", :value => "sync"}/
+
+- session.clear
