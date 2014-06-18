@@ -67,7 +67,7 @@ case $param in
         $__FILE__ start
         ;;
     *)
-        echo -e "\n PARAMS: start | stop | status \n"
+        echo -e "\n PARAMS: start | stop | restart | status \n"
         ;;
 esac
 
