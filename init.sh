@@ -31,7 +31,8 @@ case $param in
             cd $apphome && (nohup rackup -o $host -p $port -P $pid &> $logfile &)
             sleep 3
 
-            if [[ -f $pid ]]; then
+            if [[ -f $pid ]]
+            then
                 echo -e "[ \e[32mOK\e[0m ] \n"
                 #echo -e "[ \e[32mOK\e[0m ]  pid: $(<$pid) \n"
             else
@@ -46,7 +47,8 @@ case $param in
         ;;
     stop)
         echo -en "\nStop Rising-tide ... "
-        if [[ -f $pid ]]; then
+        if [[ -f $pid ]]
+        then
             kill -9 $(<$pid) && echo -e "[ \e[32mOK\e[0m ] \n"
             rm $pid
         else
