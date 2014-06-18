@@ -123,7 +123,7 @@ class App < Sinatra::Base
     params['ids'].etd_rge!
 
     if params['ids'].empty?
-      session['error'] = "Type in at least one \"id\", or \"id\" format not valid."
+      session['error'] = "Type in at least one \"id\", or \"id\" format invalid."
       redirect 'sync_mc_om'
     end
 
@@ -143,7 +143,7 @@ class App < Sinatra::Base
 
     ids = params['ids'].split("\s").select { |e| e =~ /^\d{8}$/ }  # ids is an Array
     if ids.empty?
-      session['error'] = "Type in at least one \"id\", or \"id\" format not valid."
+      session['error'] = "Type in at least one \"id\", or \"id\" format invalid."
       redirect 'v5music'
     end
 
