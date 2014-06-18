@@ -29,7 +29,7 @@ case $param in
         if [[ ! -f $pid ]]
         then
             cd $apphome && (nohup rackup -o $host -p $port -P $pid &> $logfile &)
-            sleep 3
+            sleep 5
 
             if [[ -f $pid ]]
             then
