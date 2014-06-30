@@ -164,7 +164,7 @@ class App < Sinatra::Base
   get '/backtrace' do
     dirs = Dir.glob("download/????-??-??").sort { |x, y| y <=> x }
     params['fileuris'] = {}
-    dirs.each do |e| 
+    dirs.each do |e|
       params['fileuris'].store(e.sub(/download\//, ""), Dir.glob("#{e}/**"))
     end
     haml :backtrace

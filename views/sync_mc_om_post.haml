@@ -5,8 +5,9 @@
 
   %li
     - params[:result].flatten!
-    - if (params[:result][0].nil? or params[:result][0].empty?) and params[:result][1].nil?
+    - if ( params[:result].size == 3 and ( params[:result][0].nil? or params[:result][0].empty?) and ( params[:result][1].nil? or params[:result][1].empty? ) and (params[:result][2].nil? or params[:result][2].empty? ) ) or ( params[:result].size == 2 and ( params[:result][0].nil? or params[:result][0].empty?) and ( params[:result][1].nil? or params[:result][1].empty? ) )
       %b result : OK
     -else
       - raise params[:result].inspect
+
 
