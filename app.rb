@@ -148,7 +148,7 @@ class App < Sinatra::Base
     end
 
     mv5music = Models::V5music.new(type, ids)
-    if params.include?('myfile') and params['myfile'] =~ /.*\.zip/
+    if params.include?('myfile') and params['myfile']['filename'] =~ /.*\.zip/
       content = params['myfile'][:tempfile]
       #filename = params['myfile'][:filename]
       filename = "v5music.zip"
