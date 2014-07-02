@@ -2,7 +2,7 @@
 require_relative 'base'
 
 
-module V5music
+class V5music
   def initialize(type, ids)  # ids is an Array
     @type, @ids = type, ids
     @types = $types
