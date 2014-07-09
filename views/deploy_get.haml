@@ -3,7 +3,7 @@
 
 %ul
   %li
-    %form#confile{:action => "deploy/confile", :target => "_blank"}
+    %form#confile{:action => "deploy/v5backup/confile", :target => "_blank"}
       %p
         %strong 配置文件：
         %br/
@@ -13,7 +13,7 @@
         %input{:name => "commit", :type => "submit", :value => "view"}/
         %input{:name => "commit", :type => "submit", :value => "modify"}/
   %li
-    %form{:action => "deploy", :enctype => "multipart/form-data", :method => "post"}
+    %form{:action => "deploy/v5backup", :enctype => "multipart/form-data", :method => "post"}
       %p
         %strong 发布：
         %br/
@@ -22,23 +22,26 @@
             %p= session['error'].to_html
         %input{:name => "myfile", :type => "file"}/
       %p
-        Click button to deploy:
+        上传包并且点击'v5backup'按钮开始发布：
         %br/
         %input{:name => "commit", :type => "submit", :value => "v5backup"}/
+
 %br/
-%h2 正式服务器 (sync to online server)
-%ol
-  %li
-    如果需要，请增加配置文件：
-    预留位置，此功能暂未完成。。。。。
+
+%h2 同步正式服务器 (Sync production servers)
+
+%ul
+  /%li
+  /  如果需要，请增加配置文件：
+  /  预留位置，此功能暂未完成。。。。。
   %li
     %p
-      Select && click button:
+      选择并且点击'sync'按钮开始同步：
       %br/
       %select{:form => "sync", :name => "packname"}
         - $packnames.each do |e|
           %option{:value => e}= e
       %br/
-    %form#sync{:action => "deploy", :method => "post"}
+    %form#sync{:action => "deploy/production", :method => "post"}
       %input{:name => "commit", :type => "submit", :value => "sync"}/
 - session.clear
