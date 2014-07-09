@@ -58,8 +58,8 @@ module Base
       :database => database
     )
     result = client.query(
-      "SELECT * FROM #{table} 
-      WHERE om_id in ( #{ids.join(", ")} )" 
+      "SELECT * FROM #{table}
+      WHERE om_id in ( #{ids.join(", ")} )"
     )
     result
   end

@@ -3,8 +3,8 @@ require_relative 'base'
 
 
 class Deploy
-  def initialize(packname, content, action)
-    @packname, @content, @action = packname, content, action
+  def initialize(packname, action, content=nil)
+    @packname, @action, @content = packname, action, content
     @packname_dotfront = packname.sub(/\.\w+$/, '')
   end
 

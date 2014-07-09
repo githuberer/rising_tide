@@ -59,7 +59,7 @@ class App < Sinatra::Base
     end
     unless params.include?("hostname")
       session['error3'] = "Please select at least one hostname."
-      redirect '/subfile' 
+      redirect '/subfile'
     end
 
     params['result'] = Main.subfile(
@@ -74,7 +74,7 @@ class App < Sinatra::Base
   get '/deploy' do
     haml :deploy_get
   end
-  post '/deploy' do
+  post '/deploy/v5backup' do
     unless params.include?('myfile')
       session['error'] = "Please select and upload file."
       redirect 'deploy'
@@ -89,13 +89,25 @@ class App < Sinatra::Base
       redirect 'deploy'
     end
 
-    mdeploy = Models::Deploy.new(packname, content, action)
+    mdeploy = Models::Deploy.new(packname, action, content)
+    params['result'] = mdeploy.deploy
+    haml :deploy_post
+  end
+  post '/deploy/production' do
+    packname = params['myfile'][:filename]
+    action = params['commit']
+
+    unless $packnames.include?(packname)
+      session['error'] = "\"#{packname}\" not support to deploy. \n Valid packname: #{$packnames.join(', ')}"
+      redirect 'deploy'
+    end
+
+    mdeploy = Models::Deploy.new(packname, action)
     params['result'] = mdeploy.deploy
     haml :deploy_post
   end
 
-
-  get '/deploy/confile' do
+  get '/deploy/v5backup/confile' do
     confile_uri = "upload/v5backup-config.properties/#{params['packname'].sub(/\.\w+$/, '')}"
     params['content'] = File.read(confile_uri)
     case params['commit']
@@ -107,7 +119,7 @@ class App < Sinatra::Base
       redirect '/deploy'
     end
   end
-  post '/deploy/confile/modify/:packname' do
+  post '/deploy/v5backup/confile/modify/:packname' do
     confile_uri = "upload/v5backup-config.properties/#{params['packname'].sub(/\.\w+$/, '')}"
     File.open(confile_uri, 'w') { |f| f.write(params['content']) }
     redirect "/deploy/confile?packname=#{params['packname']}&commit=view"
