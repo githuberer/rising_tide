@@ -49,7 +49,8 @@ class Deploy
     elsif @action == "sync"
       case @packname
       when "api-album.zip", "api-yyalbum.war"
-        ["v5file", "v5app", "v5app2"].each {|e| update_package(e) }
+        results = []
+        ["v5file", "v5app", "v5app2"].each {|e| results << update_package(e) }
       else
         update_package("v5file")
       end

@@ -6,7 +6,13 @@
     packname : #{params['myfile'][:filename]}
   %li
     - regex = Regexp.new("Starting.*OK", Regexp::MULTILINE)
-    - if params[:result] =~ regex
-      %b result : OK
-    - else
-      - raise params[:result].inspect
+    - if params[:result].is_a?(String)
+      - if params[:result] =~ regex
+        %b result : OK
+      - else
+        - raise params[:result].inspect
+    - elsif params[:result].is_a?(Array)
+      - if params[:result][0] =~ regex and params[:result][1] =~ regex and params[:result][2] =~ regex
+        %b result : OK
+      - else
+        - raise "v5file, v5app, v5app2 =>" + params[:result].inspect
