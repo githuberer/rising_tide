@@ -8,8 +8,8 @@
     %meta{:content => "width=device-width", :name => "viewport"}/
     %meta{:content => "Rising-tide Manager", :name => "description"}/
     / Custom CSS
-    %link{:href => "css/main.css", :rel => "stylesheet"}/
-    %link{:href => "css/fonts.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/css/main.css", :rel => "stylesheet"}/
+    %link{:href => "/css/fonts.css", :rel => "stylesheet", :type => "text/css"}/
   %body
     %header.site-header
       .wrap
@@ -28,29 +28,29 @@
           %h1 麦唱
           %ul
             %li
-              %a{:href => "redis"} Redis刷新缓存
+              %a{:href => "/redis"} Redis刷新缓存
             %li
-              %a{:href => "subfile"} 替换文件
+              %a{:href => "/subfile"} 替换文件
             %li
-              %a{:href => "deploy"} 版本发布
+              %a{:href => "/deploy"} 版本发布
             /%li
             /  %a{:href => "debug"} Debug:chklog:tomcat
             %li
-              %a{:href => "sync_mc_om"} 同步麦唱伴奏至正式服务器
+              %a{:href => "/sync_mc_om"} 同步麦唱伴奏至正式服务器
           %h1 音乐
           %ul
             %li
-              %a{:href => "v5music"} 渠道发布
+              %a{:href => "/v5music"} 渠道发布
           %h1 其它
           %ul
             %li
-              %a{:href => "backtrace"} 回溯文件
+              %a{:href => "/backtrace"} 回溯文件
             %li
-              %a{:href => "backtrace"} ---
+              %a{:href => "/backtrace"} ---
             %li
-              %a{:href => "backtrace"} ---
+              %a{:href => "/backtrace"} ---
             %li
-              %a{:href => "backtrace"} ---
+              %a{:href => "/backtrace"} ---
             /%li
             /  %a{:href => "monitor"} 服务器监控
     %footer.site-footer
