@@ -94,7 +94,8 @@ class App < Sinatra::Base
     haml :deploy_post
   end
   post '/deploy/production' do
-    packname = params['myfile'][:filename]
+    params.inspect
+    packname = params['packname']
     action = params['commit']
 
     unless $packnames.include?(packname)
@@ -104,6 +105,7 @@ class App < Sinatra::Base
 
     mdeploy = Models::Deploy.new(packname, action)
     params['result'] = mdeploy.deploy
+    #params['result'].inspect
     haml :deploy_post
   end
 

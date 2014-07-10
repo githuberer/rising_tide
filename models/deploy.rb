@@ -36,13 +36,19 @@ class Deploy
     upload_scp("/temp/#{@packname}", hostname)
     ssh(script, hostname)
   end
+  def sync(hostname)
+    script = <<-EOF
+      sudo /u/shscript/update-package/#{@packname_dotfront}.sh
+    EOF
+    ssh(script, hostname)
+  end
 
 
   public
   def deploy
-    upload
     if @action == (hostname = "v5backup")
       #confile_modify(hostname, @confile_content) if @confile_content
+      upload
       confile_append(hostname)
       upload_scp("/temp/#{@packname}", hostname)
       update_package(hostname)
@@ -50,9 +56,10 @@ class Deploy
       case @packname
       when "api-album.zip", "api-yyalbum.war"
         results = []
-        ["v5file", "v5app", "v5app2"].each {|e| results << update_package(e) }
+        ["v5file", "v5app", "v5app2"].each { |e| results << sync(e) }
+        results
       else
-        update_package("v5file")
+        sync("v5file")
       end
     end
   end
