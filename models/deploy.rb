@@ -56,7 +56,7 @@ class Deploy
       case @packname
       when "api-album.zip", "api-yyalbum.war"
         results = []
-        ["v5file", "v5app", "v5app2"].each { |e| results << sync(e) }
+        ["v5file", "v5app", "v5app2", "v5db2"].each { |e| results << sync(e) }
         results
       else
         sync("v5file")

@@ -17,10 +17,10 @@
   - else
     - raise params[:result].inspect
 - elsif params[:result].is_a?(Array)
-  - if params[:result][0] =~ regex and params[:result][1] =~ regex and params[:result][2] =~ regex
+  - if params[:result][0] =~ regex and params[:result][1] =~ regex and params[:result][2] =~ regex and params[:result][3]
     %li
       packname : #{params['packname']}
     %li
       %b result : OK
   - else
-    - raise "v5file, v5app, v5app2 =>" + params[:result].inspect
+    - raise "v5file, v5app, v5app2, v5db2 =>" + params[:result].inspect
