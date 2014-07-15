@@ -29,9 +29,11 @@
 set :output, "logs/whenever.log"
 
 
+=begin
 every :day, :at => '1am' do
   rake "check_server_health"
 end
+=end
 
 every :day, :at => '9pm' do
   rake "rearrange_upload_to_download"
