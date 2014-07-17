@@ -18,4 +18,4 @@ rack.pid
 *.swo
 .*.swp
 .*.swo
-.Gemfile.lock
+Gemfile.lock
