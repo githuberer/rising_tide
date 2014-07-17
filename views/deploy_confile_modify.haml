@@ -2,7 +2,7 @@
   config.properties -- #{params['packname']}
 %br/
 %p
-  %form{:action => "/deploy/confile/modify/#{params['packname']}", :enctype => "multipart/form-data", :method => "post"}
+  %form{:action => "/deploy/v5backup/confile/modify/#{params['packname']}", :enctype => "multipart/form-data", :method => "post"}
     %textarea{:cols => "150", :name => "content", :rows => "35"}= params['content']
     %br/
     %input{:name => "commit", :type => "submit", :value => "修改配置文件"}/

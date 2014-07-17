@@ -38,7 +38,7 @@ class App < Sinatra::Base
     params.inspect
     unless params.include?('hostname')
       session['error'] = "Please select at least one hostname."
-      redirect '/redis' 
+      redirect '/redis'
     end
     params['result'] = Main.redis_flush(params['hostname'])
     haml :redis_flush_post
@@ -124,7 +124,7 @@ class App < Sinatra::Base
   post '/deploy/v5backup/confile/modify/:packname' do
     confile_uri = "upload/v5backup-config.properties/#{params['packname'].sub(/\.\w+$/, '')}"
     File.open(confile_uri, 'w') { |f| f.write(params['content']) }
-    redirect "/deploy/confile?packname=#{params['packname']}&commit=view"
+    redirect "/deploy/v5backup/confile?packname=#{params['packname']}&commit=view"
   end
 
 
